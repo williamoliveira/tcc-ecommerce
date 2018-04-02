@@ -1,0 +1,97 @@
+{
+  "name": "react-isomorphic-kit-boilerplate",
+  "version": "1.0.0",
+  "description": "React Isomorphic Kit Boilerplate",
+  "license": "MIT",
+  "main": "build/server/index.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "build": "./node_modules/react-universal-boilerplate/scripts/build.js --optimize",
+    "build:dev": "./node_modules/react-universal-boilerplate/scripts/build.js",
+    "clean": "./node_modules/react-universal-boilerplate/scripts/clean.js",
+    "develop": "./node_modules/react-universal-boilerplate/scripts/develop.js",
+    "lint": "eslint src",
+    "start": "cross-env NODE_ENV=production node build/server",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "precommit": "lint-staged",
+    "format": "prettier-eslint \"+(src)/**/*.js\" --write"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|node_modules|flow-typed|public)/"
+    ]
+  },
+  "dependencies": {
+    "app-root-dir": "1.0.2",
+    "assign-deep": "0.4.7",
+    "axios": "0.18.0",
+    "bootstrap": "4.0.0",
+    "classnames": "2.2.5",
+    "compression": "1.7.2",
+    "cookie-parser": "1.4.3",
+    "cross-env": "5.1.4",
+    "date-fns": "1.29.0",
+    "express": "4.16.3",
+    "fast-deep-equal": "1.1.0",
+    "font-awesome": "4.7.0",
+    "helmet": "3.12.0",
+    "history": "4.7.2",
+    "hpp": "0.2.2",
+    "lodash": "4.17.5",
+    "moize": "5.0.1",
+    "normalizr": "3.2.4",
+    "offline-plugin": "5.0.0-0",
+    "prop-types": "15.6.1",
+    "qs": "6.5.1",
+    "react": "16.2.0",
+    "react-async-bootstrapper": "1.1.2",
+    "react-async-component": "1.0.2",
+    "react-datetime": "2.14.0",
+    "react-dom": "16.2.0",
+    "react-helmet-async": "0.0.5",
+    "react-hot-loader": "4.0.0",
+    "react-redux": "5.0.7",
+    "react-reformed": "1.1.2",
+    "react-router": "4.2.0",
+    "react-router-dom": "4.2.2",
+    "react-router-redux": "5.0.0-alpha.9",
+    "react-toastify": "3.4.2",
+    "react-universal-boilerplate": "williamoliveira/react-universal-boilerplate",
+    "reactstrap": "5.0.0-beta",
+    "recompose": "0.26.0",
+    "redux": "3.7.2",
+    "redux-act-light": "1.0.1",
+    "redux-persist-cookie-storage": "0.4.0",
+    "redux-saga": "0.16.0",
+    "reselect": "3.0.1",
+    "serialize-javascript": "1.4.0",
+    "socket.io-client": "2.0.4",
+    "uuid": "3.2.1"
+  },
+  "devDependencies": {
+    "enzyme": "3.3.0",
+    "eslint": "4.18.2",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "jest": "22.4.2",
+    "prettier-eslint-cli": "4.7.1",
+    "redux-devtools-extension": "2.13.2"
+  }
+}
