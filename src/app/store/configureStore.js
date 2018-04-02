@@ -16,7 +16,7 @@ const logging = () => next => (action) => {
   next(action)
 }
 
-export default (state, { history, cookies, appWasServerRendered }) => {
+export default (state, { history, cookies }) => {
   const sagaMiddleware = createSagaMiddleware()
 
   const middlewares = [sagaMiddleware, routerMiddleware(history)]

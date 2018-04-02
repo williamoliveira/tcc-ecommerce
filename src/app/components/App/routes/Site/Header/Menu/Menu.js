@@ -45,11 +45,11 @@ class Menu extends React.Component {
         <Navbar color="primary" dark expand>
           <NavbarToggler onClick={this.toggle} />
           <Link to="/" className="navbar-brand">
-            React Universal Boilerplate
+            React Isomorphic Kit Boilerplate
           </Link>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItemLink to="/tags">Tags</NavItemLink>
+              {/*<NavItemLink to="/user">Users</NavItemLink>*/}
             </Nav>
           </Collapse>
         </Navbar>
