@@ -6,6 +6,11 @@ import * as actions from './actions'
 import { actions as authActions, selectors as authSelectors } from '../auth'
 import toast from '../../utils/toast'
 import { REHYDRATE } from '../../utils/reduxSagaPersistor'
+import companyApi from './services/companyApi'
+import productsApi from '../products/services/productsApi'
+import takeLocationChange from '../../utils/sagas/takeLocationChange'
+import notifyInitialFetch from './sagaUtils/notifyInitialFetch'
+import putAndWait from '../../utils/sagas/putAndWait'
 
 const getUserFriendlyMessageFromError = (error) => {
   // not axios error
@@ -48,11 +53,11 @@ export function* errorHandlerSaga({ payload, payload: { error, action } }) {
 }
 
 function* beforeAppStartSaga() {
-  yield put(actions.startRehydration())
-  yield take(actions.rehydrationDone)
-
   const user = yield select(authSelectors.getUser)
   const accessToken = yield select(authSelectors.getAccessToken)
+
+  yield put(actions.fetchCompany())
+  yield take([actions.fetchCompanySuccess, actions.fetchCompanyFailed])
 
   if (!user && accessToken) {
     yield put(authActions.fetchUser())
@@ -63,6 +68,11 @@ function* beforeAppStartSaga() {
 }
 
 function* beforeAppStartDoneSaga() {
+  if (process.env.BUILD_FLAG_IS_SERVER === 'true') {
+    yield put(END)
+    return
+  }
+
   yield put(actions.appStarted())
 }
 
@@ -86,11 +96,12 @@ export function* initialFetchHandlerSaga() {
 
   yield take(actions.appStarted)
 
-  // if before 5ms 'waiting' still 0, probably 'initialFetchStarted' was never called
-  yield delay(5)
+  const DELAY = 5
+  // if before Xms 'waiting' still 0, probably 'initialFetchStarted' was never called
+  yield delay(DELAY)
   if (!ended && waiting <= 0) {
     // eslint-disable-next-line no-console
-    console.log('No saga called initialFetchStarted withing 5ms')
+    console.log(`No saga called initialFetchStarted withing ${DELAY}ms`)
     yield put(END)
   }
 }
@@ -121,14 +132,6 @@ export function* setLocationSearchSaga(action) {
   yield put(replace(newLocation))
 }
 
-export function requestNotificationPermissionSaga() {
-  if (process.env.BUILD_FLAG_IS_CLIENT === 'true') {
-    if (Notification.permission !== 'granted') {
-      Notification.requestPermission()
-    }
-  }
-}
-
 export function* showToastSaga({ payload }) {
   const { message, ...options } = payload
 
@@ -155,20 +158,61 @@ export function* rehydrateDoneSaga() {
   yield put(actions.rehydrationDone())
 }
 
+export function* fetchCompanySaga(action) {
+  try {
+    yield put(actions.fetchCompanyStarted())
+
+    const res = yield call(companyApi.fetch)
+
+    yield put(actions.fetchCompanySuccess(res.data))
+  } catch (error) {
+    yield put(actions.fetchCompanyFailed({ error, action }))
+  }
+}
+
+export function* fetchSlidersSaga(action) {
+  try {
+    yield put(actions.fetchSlidersStarted())
+
+    const query = {
+      where: {
+        show_in_slider: 1,
+      },
+    }
+    const res = yield call(productsApi.fetchMany, query)
+
+    yield put(actions.fetchSlidersSuccess(res.data))
+  } catch (error) {
+    yield put(actions.fetchSlidersFailed({ error, action }))
+  }
+}
+
+export function* locationChangedSaga() {
+  yield putAndWait(
+    actions.fetchSliders(),
+    actions.fetchSlidersSuccess,
+    actions.fetchSlidersFailed,
+  )
+}
+
 // ------------------------------------
 // Watchers
 // ------------------------------------
 export default function* () {
+  if (process.env.BUILD_FLAG_IS_SERVER === 'true') {
+    yield fork(initialFetchHandlerSaga)
+  }
   yield takeLatest(actions.beforeAppStart, beforeAppStartSaga)
   yield takeLatest(actions.beforeAppStartDone, beforeAppStartDoneSaga)
-  yield takeLatest(actions.appStarted, requestNotificationPermissionSaga)
   yield takeLatest(actions.setLocationSearch, setLocationSearchSaga)
   yield takeEvery(actions.error, errorHandlerSaga)
   yield takeEvery(actions.showToast, showToastSaga)
   yield takeEvery(REHYDRATE, rehydrateDoneSaga)
+  yield takeLatest(actions.fetchCompany, fetchCompanySaga)
+  yield takeLatest(actions.fetchSliders, fetchSlidersSaga)
   yield fork(readySaga)
-
-  if (process.env.BUILD_FLAG_IS_SERVER === 'true') {
-    yield fork(initialFetchHandlerSaga)
-  }
+  yield takeLocationChange(
+    { path: '/', exact: true },
+    notifyInitialFetch(locationChangedSaga),
+  )
 }

@@ -8,7 +8,10 @@ import { NAME } from './constants'
 
 export const appKey = `${NAME}`
 
-const getInitialState = () => ({})
+const initialState = {
+  company: null,
+  sliders: [],
+}
 
 export const appReducer = createReducer(
   {
@@ -16,6 +19,14 @@ export const appReducer = createReducer(
       ...state,
       ...payload,
     }),
+    [actions.fetchCompanySuccess]: (state, { payload }) => ({
+      ...state,
+      company: payload,
+    }),
+    [actions.fetchSlidersSuccess]: (state, { payload }) => ({
+      ...state,
+      sliders: payload,
+    }),
   },
-  getInitialState(),
+  initialState,
 )

@@ -12,6 +12,7 @@ import config from '../../../config'
 import ServerHTML from './ServerHTML'
 import App from '../../../app/components/App'
 import StaticContextProvider from './StaticContextProvider'
+import { actions as appActions } from '../../../app/modules/app'
 
 const respondStatic = (response, nonce) => {
   const html = `<!DOCTYPE html>${renderToStaticMarkup(<ServerHTML nonce={nonce} />)}`
@@ -66,7 +67,14 @@ export default async (request, response) => {
       </AsyncComponentProvider>
     )
 
+    store.custom.startSagas()
+    store.dispatch(appActions.appStarted())
+
     await asyncBootstrapper(<AppContainer />)
+
+    if (process.env.BUILD_FLAG_IS_NODE === 'true') {
+      await Promise.all(store.custom.runningTasks.map(task => task.done))
+    }
 
     const htmlStream = renderToNodeStream(
       <ServerHTML

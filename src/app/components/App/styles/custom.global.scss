@@ -1,0 +1,85 @@
+
+html, body, #app, .full-height {
+  height: 100%;
+}
+
+.pagination {
+  margin-bottom: 0;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.invalid-feedback {
+  display: block !important;
+}
+
+.text-light a {
+  color: #fff !important;
+}
+
+.slick-prev {
+  left: 25px;
+}
+
+.slick-next {
+  right: 25px;
+}
+
+.slick-prev, .slick-next {
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+}
+
+.slick-dots {
+  bottom: 10px;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 30px;
+  color: #0da9ef;
+}
+
+@media print {
+  html {
+    zoom: 0.68;
+  }
+  body {
+    background-color: #fff !important;
+    height:100vh;
+  }
+
+  /* Page Breaks */
+
+  /***Always insert a page break before the element***/
+  .pb-before {
+    page-break-before: always !important;
+  }
+
+  /***Always insert a page break after the element***/
+  .pb-after {
+    page-break-after: always !important;
+  }
+
+  /***Avoid page break before the element (if possible)***/
+  .pb-before-avoid {
+    page-break-before: avoid !important;
+  }
+
+  /***Avoid page break after the element (if possible)***/
+  .pb-after-avoid {
+    page-break-after: avoid !important;
+  }
+
+  /* Avoid page break inside the element (if possible) */
+  .pb-inside-avoid {
+    page-break-inside: avoid !important;
+  }
+
+}

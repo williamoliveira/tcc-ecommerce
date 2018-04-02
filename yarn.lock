@@ -1851,6 +1851,10 @@ camelize@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
 
+can-use-dom@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/can-use-dom/-/can-use-dom-0.1.0.tgz#22cc4a34a0abc43950f42c6411024a3f6366b45a"
+
 caniuse-api@^1.5.2:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/caniuse-api/-/caniuse-api-1.6.1.tgz#b534e7c734c4f81ec5fbe8aca2ad24354b962c6c"
@@ -2050,7 +2054,7 @@ classnames-loader@2.0.0:
   dependencies:
     loader-utils "^0.2.11"
 
-classnames@2.2.5, classnames@^2.2.3:
+classnames@2.2.5, classnames@^2.2.3, classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -3005,6 +3009,10 @@ enhanced-resolve@^4.0.0:
     graceful-fs "^4.1.2"
     memory-fs "^0.4.0"
     tapable "^1.0.0"
+
+enquire.js@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/enquire.js/-/enquire.js-2.1.6.tgz#3e8780c9b8b835084c3f60e166dbc3c2a3c89814"
 
 entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
@@ -5361,6 +5369,12 @@ json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
+json2mq@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/json2mq/-/json2mq-0.2.0.tgz#b637bd3ba9eabe122c83e9720483aeb10d2c904a"
+  dependencies:
+    string-convert "^0.2.0"
+
 json3@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
@@ -7528,7 +7542,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.6.1, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@15.6.1, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -7777,9 +7791,21 @@ react-hot-loader@4.0.0:
     prop-types "^15.6.0"
     shallowequal "^1.0.2"
 
+react-input-autosize@^2.1.2:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-onclickoutside@^6.5.0:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.7.1.tgz#6a5b5b8b4eae6b776259712c89c8a2b36b17be93"
+
+react-paginate@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/react-paginate/-/react-paginate-5.2.2.tgz#c407d325e3073e39e49739ab5095a829000a1c46"
+  dependencies:
+    prop-types "^15.6.1"
 
 react-popper@^0.7.2:
   version "0.7.5"
@@ -7838,6 +7864,25 @@ react-router@4.2.0, react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-select@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.2.1.tgz#a2fe58a569eb14dcaa6543816260b97e538120d1"
+  dependencies:
+    classnames "^2.2.4"
+    prop-types "^15.5.8"
+    react-input-autosize "^2.1.2"
+
+react-slick@^0.22.3:
+  version "0.22.3"
+  resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.22.3.tgz#667991b2496e6b10bcca2a2e676ffadf34e7d56c"
+  dependencies:
+    can-use-dom "^0.1.0"
+    classnames "^2.2.5"
+    create-react-class "^15.5.2"
+    enquire.js "^2.1.6"
+    json2mq "^0.2.0"
+    resize-observer-polyfill "^1.5.0"
+
 react-test-renderer@16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.2.0.tgz#bddf259a6b8fcd8555f012afc8eacc238872a211"
@@ -7872,84 +7917,72 @@ react-universal-boilerplate@williamoliveira/react-universal-boilerplate:
   version "1.0.0"
   resolved "https://codeload.github.com/williamoliveira/react-universal-boilerplate/tar.gz/a877abf9177b678b99f8f23b8ecadc41a28af7c3"
   dependencies:
-    "@babel/cli" "^7.0.0-beta.42"
-    "@babel/core" "7.0.0-beta.42"
-    "@babel/node" "7.0.0-beta.42"
-    "@babel/preset-env" "7.0.0-beta.42"
-    "@babel/register" "7.0.0-beta.42"
     app-root-dir "1.0.2"
-    assets-webpack-plugin "3.5.1"
-    babel-eslint "8.2.2"
-    babel-jest "23.0.0-alpha.0"
-    babel-loader "8.0.0-beta.2"
-    babel-plugin-react-flow-props-to-prop-types "0.15.0"
-    babel-plugin-syntax-dynamic-import "7.0.0-beta.3"
-    babel-plugin-transform-class-properties "7.0.0-beta.3"
-    babel-plugin-transform-react-constant-elements "7.0.0-beta.3"
-    babel-plugin-transform-react-inline-elements "7.0.0-beta.3"
-    babel-plugin-transform-react-jsx-self "7.0.0-beta.3"
-    babel-plugin-transform-react-jsx-source "7.0.0-beta.3"
-    babel-polyfill "7.0.0-beta.3"
-    babel-preset-react "7.0.0-beta.3"
-    babel-preset-stage-3 "7.0.0-beta.3"
-    babel-template "7.0.0-beta.3"
+    assign-deep "0.4.7"
+    axios "0.18.0"
+    bootstrap "4.0.0"
     chalk "^2.3.2"
-    chokidar "2.0.2"
-    classnames-loader "2.0.0"
-    css-loader "0.28.10"
-    detect-port-alt "1.1.5"
+    classnames "2.2.5"
+    compression "1.7.2"
+    cookie-parser "1.4.3"
+    cookies "0.7.1"
+    cross-env "5.1.4"
+    date-fns "1.29.0"
     dotenv "5.0.1"
-    enzyme "3.3.0"
-    enzyme-to-json "3.3.1"
-    eslint "4.18.2"
-    eslint-config-airbnb "16.1.0"
-    eslint-plugin-import "2.9.0"
-    eslint-plugin-jsx-a11y "6.0.3"
-    eslint-plugin-react "7.7.0"
+    emoji-mart "2.5.0"
     express "4.16.3"
-    extract-text-webpack-plugin "4.0.0-beta.0"
-    file-loader "1.1.11"
-    flow-bin "0.68.0"
-    flow-typed "2.3.0"
-    glob "7.1.2"
-    hard-source-webpack-plugin "0.6.4"
-    html-webpack-plugin "3.0.6"
-    husky "0.14.3"
-    jest "22.4.2"
-    lint-staged "7.0.0"
+    favico.js "0.3.10"
+    font-awesome "4.7.0"
+    helmet "3.12.0"
+    history "4.7.2"
+    hpp "0.2.2"
+    lodash "4.17.5"
+    md5 "2.2.1"
     modernizr "3.6.0"
-    modernizr-loader "1.0.1"
-    node-notifier "5.2.1"
-    node-sass "4.7.2"
+    moize "5.0.1"
+    moment "2.21.0"
+    normalize.css "8.0.0"
+    normalizr "3.2.4"
     offline-plugin "5.0.0-0"
-    postcss-cssnext "3.1.0"
-    postcss-import "11.1.0"
-    postcss-loader "2.1.1"
-    postcss-simple-vars "4.1.0"
-    prettier "1.11.1"
-    prettier-eslint "8.8.1"
-    prettier-eslint-cli "4.7.1"
     prop-types "15.6.1"
+    prop-types-extra "1.0.1"
+    qs "6.5.1"
+    raven-js "3.23.1"
     react "16.2.0"
-    react-addons-test-utils "15.6.2"
-    react-dev-utils "5.0.0"
+    react-addons-css-transition-group "15.6.2"
+    react-addons-transition-group "15.6.2"
+    react-async-bootstrapper "1.1.2"
+    react-async-component "1.0.2"
+    react-datetime "2.14.0"
     react-dom "16.2.0"
+    react-easy-emoji "1.1.0"
+    react-helmet-async "0.0.5"
     react-hot-loader "4.0.0"
-    react-test-renderer "16.2.0"
-    redux-devtools-extension "2.13.2"
-    regenerator-runtime "0.11.1"
-    rimraf "2.6.2"
-    sass-loader "6.0.7"
-    semver "5.5.0"
+    react-image-lightbox "4.6.0"
+    react-linkify "0.2.2"
+    react-redux "5.0.7"
+    react-reformed "1.1.2"
+    react-router "4.2.0"
+    react-router-dom "4.2.2"
+    react-router-redux "5.0.0-alpha.9"
+    react-select "1.2.1"
+    react-toastify "3.4.2"
+    react-tree-walker "2.2.0"
+    react-ultimate-pagination-bootstrap-4 "1.1.0"
+    react-virtualized "9.18.5"
+    reactstrap "5.0.0-beta"
+    recompose "0.26.0"
+    redux "3.7.2"
+    redux-act-light "1.0.1"
+    redux-logger "3.0.6"
+    redux-persist "5.9.1"
+    redux-persist-cookie-storage "0.4.0"
+    redux-saga "0.16.0"
+    reselect "3.0.1"
     serialize-javascript "1.4.0"
-    source-map-support "0.5.4"
-    style-loader "0.20.3"
-    uglifyjs-webpack-plugin "1.2.3"
-    webpack "4.1.1"
-    webpack-bundle-analyzer "2.11.1"
-    webpack-dev-middleware "3.0.1"
-    webpack-hot-middleware "2.21.2"
-    webpack-node-externals "1.6.0"
+    socket.io-client "2.0.4"
+    string-mask "0.3.0"
+    uuid "3.2.1"
 
 react@16.2.0:
   version "16.2.0"
@@ -8380,6 +8413,10 @@ reserved-words@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/reserved-words/-/reserved-words-0.1.2.tgz#00a0940f98cd501aeaaac316411d9adc52b31ab1"
 
+resize-observer-polyfill@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
+
 resolve-async@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-async/-/resolve-async-1.0.1.tgz#6bf9f26451e9a64a58a13edb82e615ddfcbda86b"
@@ -8720,6 +8757,10 @@ slice-ansi@1.0.0:
   dependencies:
     readable-stream "~1.0.31"
 
+slick-carousel@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -8979,6 +9020,10 @@ stream-to-observable@^0.2.0:
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
+
+string-convert@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/string-convert/-/string-convert-0.2.1.tgz#6982cc3049fbb4cd85f8b24568b9d9bf39eeff97"
 
 string-length@^2.0.0:
   version "2.0.0"
