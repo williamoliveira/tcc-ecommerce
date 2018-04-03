@@ -23,8 +23,6 @@ class ProductsShowBody extends Component {
     })
 
     validation.setRules({})
-
-    this.fetch()
   }
 
   fetch() {

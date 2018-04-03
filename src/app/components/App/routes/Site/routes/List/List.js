@@ -68,12 +68,6 @@ class ProductsIndex extends React.Component {
     }
   }
 
-  initialFetch() {
-    if (!this.props.isLoading) this.fetch()
-
-    this.props.fetchManyProductGroups()
-  }
-
   fetch() {
     const { pagination } = this.state
 

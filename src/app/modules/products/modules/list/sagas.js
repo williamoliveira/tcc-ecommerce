@@ -6,7 +6,6 @@ import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
 import { reportErrorSaga } from '../../../app/sagas'
-import * as selectors from './selectors'
 import {
   selectors as filtersSelectors,
   actions as filtersActions,

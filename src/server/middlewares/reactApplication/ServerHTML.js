@@ -37,7 +37,6 @@ function ServerHTML(props) {
     nonce,
     reactAppString,
     children,
-    wasSSR,
   } = props
 
   const inlineScript = body => (
@@ -60,23 +59,23 @@ function ServerHTML(props) {
   ])
 
   const bodyElements = clean([
-    <ClientConfig nonce={nonce} config={config()} />,
-    ifElse(asyncComponentsState)(() =>
+    ifElse(!config('disableCSR'))(() => <ClientConfig nonce={nonce} config={config()} />),
+    ifElse(!config('disableCSR') && asyncComponentsState)(() =>
       inlineScript(
         `window.__ASYNC_COMPONENTS_REHYDRATE_STATE__=${serialize(asyncComponentsState)};`,
       ),
     ),
-    ifElse(appState)(() =>
+    ifElse(!config('disableCSR') && appState)(() =>
       inlineScript(`window.__APP_REHYDRATE_STATE__=${serialize(appState)};`),
     ),
-    inlineScript(`window.__APP_WAS_SSR__=${serialize(!!wasSSR)};`),
-    ifElse(config('polyfillIO.enabled'))(() =>
+    ifElse(!config('disableCSR') && config('polyfillIO.enabled'))(() =>
       scriptTag(
         `${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}`,
       ),
     ),
     ifElse(
-      process.env.BUILD_FLAG_IS_DEV === 'true' &&
+      !config('disableCSR') &&
+        process.env.BUILD_FLAG_IS_DEV === 'true' &&
         config('bundles.client.devVendorDLL.enabled'),
     )(() =>
       scriptTag(
@@ -85,7 +84,7 @@ function ServerHTML(props) {
         )}.js?t=${Date.now()}`,
       ),
     ),
-    ifElse(clientEntryAssets && clientEntryAssets.js)(() =>
+    ifElse(!config('disableCSR') && clientEntryAssets && clientEntryAssets.js)(() =>
       scriptTag(clientEntryAssets.js),
     ),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
@@ -114,7 +113,6 @@ ServerHTML.propTypes = {
   nonce: PropTypes.string,
   reactAppString: PropTypes.string,
   children: PropTypes.node,
-  wasSSR: PropTypes.bool,
 }
 
 export default ServerHTML

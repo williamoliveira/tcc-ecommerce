@@ -70,5 +70,5 @@ export function* updateLocationSearchSaga(action) {
 export default function* () {
   yield takeLatest(actions.changeFilters, changeFiltersSaga)
   yield takeLatest(actions.changeFiltersSuccess, updateLocationSearchSaga)
-  yield takeLocationChange('/', notifyInitialFetch(locationChangedSaga))
+  yield takeLocationChange('/', locationChangedSaga)
 }

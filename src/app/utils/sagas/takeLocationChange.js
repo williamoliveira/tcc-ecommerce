@@ -10,11 +10,12 @@ export default (route, saga, ...args) =>
 
     while (true) {
       const action = yield take(LOCATION_CHANGE)
-      const matches = routes.filter(r => matchPath(action.payload.pathname, r))
+      const matches = routes.map(r => matchPath(action.payload.pathname, r))
 
-      if (matches.length) {
+      if (matches.filter(x => x).length) {
         count += 1
-        yield fork(saga, ...[...args, action, { count }])
+        const match = matches[0]
+        yield fork(saga, ...[...args, action, { match, count }])
       }
     }
   })

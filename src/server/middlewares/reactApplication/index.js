@@ -82,7 +82,6 @@ export default async (request, response) => {
         helmet={helmetContext.helmet}
         appState={store.getState()}
         asyncComponentsState={asyncComponentsContext.getState()}
-        wasSSR
       >
         <AppContainer />
       </ServerHTML>,

@@ -3,6 +3,9 @@ import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
+import putAndWait from '../../../../utils/sagas/putAndWait'
+import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
+import takeLocationChange from '../../../../utils/sagas/takeLocationChange'
 
 // ------------------------------------
 // Sub-routines
@@ -31,11 +34,20 @@ export function* fetchOneProductSaga(action) {
   }
 }
 
+export function* initSaga(action, { match }) {
+  yield putAndWait(
+    actions.fetchOne({ id: match.params.id }),
+    actions.fetchOneSuccess,
+    actions.fetchOneFailed,
+  )
+}
+
 // ------------------------------------
 // Watchers
 // ------------------------------------
 export function* watchers() {
   yield takeLatest(actions.fetchOne, fetchOneProductSaga)
+  yield takeLocationChange({ path: '/:id', exact: true }, notifyInitialFetch(initSaga))
 }
 
 export default [watchers]

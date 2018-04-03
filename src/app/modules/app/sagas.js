@@ -187,14 +187,6 @@ export function* fetchSlidersSaga(action) {
   }
 }
 
-export function* locationChangedSaga() {
-  yield putAndWait(
-    actions.fetchSliders(),
-    actions.fetchSlidersSuccess,
-    actions.fetchSlidersFailed,
-  )
-}
-
 // ------------------------------------
 // Watchers
 // ------------------------------------
@@ -211,8 +203,4 @@ export default function* () {
   yield takeLatest(actions.fetchCompany, fetchCompanySaga)
   yield takeLatest(actions.fetchSliders, fetchSlidersSaga)
   yield fork(readySaga)
-  yield takeLocationChange(
-    { path: '/', exact: true },
-    notifyInitialFetch(locationChangedSaga),
-  )
 }

@@ -24,7 +24,8 @@ const values = {
   baseUrl: EnvVars.string('BASE_URL', ''),
   clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
 
-  disableSSR: false,
+  disableSSR: EnvVars.bool('DISABLE_SSR', false),
+  disableCSR: EnvVars.bool('DISABLE_CSR', false),
   browserCacheMaxAge: '365d',
   polyfillIO: {
     enabled: process.env.NODE_ENV !== 'development',
