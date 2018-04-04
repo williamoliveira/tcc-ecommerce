@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import Qs from 'qs'
-import config from '../../config'
+import config from '../../../config'
 
 const interpolate = (endpointTemplate, params) =>
   Object.keys(params).reduce(

@@ -1,4 +1,4 @@
-import config from '../config'
+import config from '../../config'
 
 if (process.env.BUILD_FLAG_IS_DEV === 'false') {
   if (config('serviceWorker.enabled')) {

@@ -8,7 +8,7 @@ import { AsyncComponentProvider } from 'react-async-component'
 import { Provider as ReduxProvider } from 'react-redux'
 import { AppContainer as ReactHotLoader } from 'react-hot-loader'
 import configureStore from '../app/store/configureStore'
-import config from '../config'
+import config from '../../config'
 import App from '../app/components/App'
 
 const container = document.querySelector('#app')

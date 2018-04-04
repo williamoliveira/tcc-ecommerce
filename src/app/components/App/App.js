@@ -12,7 +12,7 @@ import './styles/peicons/scss/pe-icon-7-stroke.global.scss'
 import './styles/bootstrap.global.scss'
 import './styles/theme/styles.global.scss'
 import './styles/custom.global.scss'
-import config from '../../../config'
+import config from '../../../../config'
 
 import Error404 from './routes/Error404'
 

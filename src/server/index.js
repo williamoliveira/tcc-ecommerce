@@ -8,7 +8,7 @@ import clientBundle from './middlewares/clientBundle'
 import serviceWorker from './middlewares/serviceWorker'
 import offlinePage from './middlewares/offlinePage'
 import errorHandlers from './middlewares/errorHandlers'
-import config from '../config'
+import config from '../../config'
 import reactApplication from './middlewares/reactApplication'
 
 const app = express()

@@ -1,5 +1,5 @@
 import { axios, extractData } from '../../../utils/apiResource'
-import config from '../../../../config'
+import config from '../../../../../config'
 
 export default {
   register: data =>

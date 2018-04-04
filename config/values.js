@@ -1,4 +1,4 @@
-import EnvVars from 'react-universal-boilerplate/lib/utils/envVars'
+import EnvVars from '../internal/utils/envVars'
 
 const values = {
   clientConfigFilter: {
@@ -76,7 +76,7 @@ const values = {
   bundles: {
     client: {
       srcEntryFile: './src/client/index.js',
-      srcPaths: ['./src'],
+      srcPaths: ['./src', './internal/components'],
       outputPath: './build/client',
       webPath: '/client/',
       devVendorDLL: {
@@ -123,7 +123,7 @@ const values = {
 
     server: {
       srcEntryFile: './src/server/index.js',
-      srcPaths: ['./src'],
+      srcPaths: ['./src', './internal/components'],
       outputPath: './build/server',
     },
   },
