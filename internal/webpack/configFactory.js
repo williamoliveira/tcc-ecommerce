@@ -9,7 +9,6 @@ import path from 'path'
 import webpack from 'webpack'
 import { log } from '../utils'
 import { ifElse } from '../utils/logic'
-import { mergeDeep } from '../utils/objects'
 import { clean } from '../utils/arrays'
 import withServiceWorker from './withServiceWorker'
 import config from '../../config'
@@ -173,7 +172,7 @@ export default function (buildOptions) {
 
       ifDev(() => new webpack.NoEmitOnErrorsPlugin()),
 
-      ifDev(() => new HardSourceWebpackPlugin()),
+      ifElse(config('serviceWorker.enabled'))(() => new HardSourceWebpackPlugin()),
 
       ifDevClient(
         () =>
@@ -197,7 +196,7 @@ export default function (buildOptions) {
         {
           oneOf: clean([
             {
-              test: /\.jsx?$/,
+              test: /\.(js|jsx|mjs)$/,
               loader: 'babel-loader',
               options: config('plugins.babelConfig')(
                 {
@@ -205,7 +204,7 @@ export default function (buildOptions) {
                   presets: clean([
                     'react',
                     'stage-3',
-                    ifClient(['@babel/preset-env', { es2015: { modules: false } }]),
+                    ifClient(['@babel/preset-env', { modules: false }]),
                     ifNode(['@babel/preset-env', { targets: { node: true } }]),
                   ]),
                   plugins: clean([
@@ -252,15 +251,25 @@ export default function (buildOptions) {
               ),
             }),
 
+            ifClient({
+              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+              loader: 'url-loader',
+              options: {
+                limit: 10000,
+                name: 'static/[hash].[ext]',
+              },
+            }),
+
             ifElse(isClient || isServer)(() => ({
               loader: 'file-loader',
               exclude: [/\.js$/, /\.html$/, /\.json$/],
-              query: {
+              options: {
+                name: 'static/[hash].[ext]',
                 publicPath: isDev
                   ? `http://${config('host')}:${config('clientDevServerPort')}${config(
                     'bundles.client.webPath',
                   )}`
-                  : config('bundles.client.webPath'),
+                  : `${config('bundles.client.webPath')}`,
                 emitFile: isClient,
               },
             })),
@@ -270,7 +279,7 @@ export default function (buildOptions) {
     },
   }
 
-  if (isProd && isClient) {
+  if (isProd && isClient && config('serviceWorker.enabled')) {
     webpackConfig = withServiceWorker(webpackConfig, bundleConfig)
   }
 

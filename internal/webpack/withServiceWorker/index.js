@@ -7,10 +7,6 @@ import config from '../../../config'
 import ClientConfig from '../../components/ClientConfig'
 
 export default function withServiceWorker(webpackConfig, bundleConfig) {
-  if (!config('serviceWorker.enabled')) {
-    return webpackConfig
-  }
-
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       filename: config('serviceWorker.offlinePageFileName'),

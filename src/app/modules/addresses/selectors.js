@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 import { getEntities } from '../entities/selectors'
-import { ADDRESSES } from './constants'
+import { ENTITY_NAME } from './constants'
 import { denormalizeList, denormalizeSingle } from './schema'
 
-export const getNormalizedAddresses = state => getEntities(state)[ADDRESSES]
+export const getNormalizedAddresses = state => getEntities(state)[ENTITY_NAME]
 
 export const getAllIds = createSelector(
   [getNormalizedAddresses],

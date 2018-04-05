@@ -1,3 +1,4 @@
 /* eslint-disable import/prefer-default-export */
 
-export const MODULE_NAME = 'addresses'
+export const ENTITY_NAME = 'addresses'
+export const MODULE_NAME = ENTITY_NAME
