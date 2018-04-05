@@ -172,7 +172,7 @@ export default function (buildOptions) {
 
       ifDev(() => new webpack.NoEmitOnErrorsPlugin()),
 
-      ifElse(config('serviceWorker.enabled'))(() => new HardSourceWebpackPlugin()),
+      ifElse(!config('serviceWorker.enabled'))(() => new HardSourceWebpackPlugin()),
 
       ifDevClient(
         () =>
