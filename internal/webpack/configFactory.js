@@ -232,7 +232,7 @@ export default function (buildOptions) {
               test: /(\.scss|\.css)$/,
               use: ifClient(
                 [
-                  MiniCssExtractPlugin.loader,
+                  ifProd(MiniCssExtractPlugin.loader, 'style-loader'),
                   {
                     loader: 'css-loader',
                     options: {

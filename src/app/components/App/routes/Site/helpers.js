@@ -6,7 +6,9 @@ export const formatCurrency = (price = 0, prefix = 'R$ ') =>
     .toFixed(2)
     .replace('.', ',')}`
 
-export const makeImageUrl = url => `${config('mediaUrl')}${url}`
+export const imgCdn = url => `//i0.wp.com/${url.replace(/https?:\/\//, '')}`
+
+export const makeImageUrl = url => imgCdn(`${config('mediaUrl')}${url}`)
 
 export const getProductThumbUrl = product =>
   (product.images && product.images.length > 0

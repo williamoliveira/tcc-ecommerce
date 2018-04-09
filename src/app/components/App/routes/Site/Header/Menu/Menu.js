@@ -15,7 +15,7 @@ import {
   UncontrolledDropdown,
   Button,
 } from 'reactstrap'
-import { formatCurrency, getProductThumbUrl, makeImageUrl } from '../../helpers'
+import { formatCurrency, getProductThumbUrl, imgCdn, makeImageUrl } from '../../helpers'
 
 const NavItemLink = ({ children, to, disabled = false }) => (
   <NavItem>
@@ -93,7 +93,7 @@ class Menu extends React.Component {
               <Link to="/" className="site-logo">
                 {company.logo_url ? (
                   <img
-                    src={company.logo_url}
+                    src={imgCdn(`${company.logo_url}?h=44`)}
                     alt={company.fantasy_name || company.company_name}
                     style={{ height: 44, width: 'auto' }}
                   />

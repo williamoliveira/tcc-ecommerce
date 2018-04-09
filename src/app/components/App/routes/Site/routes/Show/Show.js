@@ -67,7 +67,7 @@ class ProductsShowBody extends Component {
     if (!product) return null
 
     const slides = (product.images || []).map(image => ({
-      src: makeImageUrl(image.url),
+      src: makeImageUrl(`${image.url}?w=800`),
       altText: product.name,
       caption: '',
     }))

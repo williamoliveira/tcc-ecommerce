@@ -47,6 +47,7 @@ const values = {
       'unpkg.com',
       'cdnjs.cloudflare.com',
       'twemoji.maxcdn.com',
+      'i0.wp.com',
       'data:',
     ],
     mediaSrc: [EnvVars.string('MEDIA_URL')],
