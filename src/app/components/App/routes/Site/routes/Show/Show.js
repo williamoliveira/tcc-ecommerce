@@ -16,6 +16,7 @@ class ProductsShowBody extends Component {
   }
 
   bootstrap() {
+    if (process.env.BUILD_FLAG_IS_CLIENT === 'true') return
     this.fetch(true)
   }
 

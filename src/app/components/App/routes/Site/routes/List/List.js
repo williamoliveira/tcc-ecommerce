@@ -59,6 +59,7 @@ class ProductsIndex extends React.Component {
   }
 
   bootstrap() {
+    if (process.env.BUILD_FLAG_IS_CLIENT === 'true') return
     this.initialFetch(true)
   }
 
