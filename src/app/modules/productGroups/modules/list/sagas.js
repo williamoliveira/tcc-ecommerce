@@ -1,13 +1,12 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest, takeEvery, select } from 'redux-saga/effects'
 import parsePaginationFromResponse from '../../../../utils/parsePaginationFromResponse'
 import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productGroupsApi from '../../services/productGroupsApi'
 import * as actions from './actions'
+import * as selectors from './selectors'
 import { reportErrorSaga } from '../../../app/sagas'
-import takeLocationChange from '../../../../utils/sagas/takeLocationChange'
 import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
-import putAndWait from '../../../../utils/sagas/putAndWait'
 
 // ------------------------------------
 // Sub-routines
@@ -37,21 +36,25 @@ export function* fetchManyProductGroupsSaga(action) {
   }
 }
 
-export function* saveOneSuccessSaga() {
-  yield put(actions.fetchMany())
-}
+export function initialFetchHandler(saga) {
+  return notifyInitialFetch(function* (action) {
+    if (!action.payload.isInitialFetch) {
+      yield call(saga, action)
+      return
+    }
 
-export function* initSaga() {
-  yield putAndWait(actions.fetchMany(), actions.fetchManySuccess, actions.fetchManyFailed)
+    if (yield select(selectors.getDidInitialFetch)) return
+    yield call(saga, action)
+    yield put(actions.initialFetchDone())
+  })
 }
 
 // ------------------------------------
 // Watchers
 // ------------------------------------
 export function* watchers() {
-  yield takeLatest(actions.fetchMany, fetchManyProductGroupsSaga)
+  yield takeLatest(actions.fetchMany, initialFetchHandler(fetchManyProductGroupsSaga))
   yield takeEvery(actions.fetchManyFailed, reportErrorSaga)
-  yield takeLocationChange({ path: '/', exact: true }, notifyInitialFetch(initSaga))
 }
 
 export default [watchers]

@@ -58,6 +58,14 @@ class ProductsIndex extends React.Component {
     this.productInCart = this.productInCart.bind(this)
   }
 
+  bootstrap() {
+    this.initialFetch(true)
+  }
+
+  componentDidMount() {
+    this.initialFetch(true)
+  }
+
   componentWillReceiveProps(newProps) {
     const currentLocationState = this.props.location.state || {}
     const newLocationState = newProps.location.state || {}
@@ -68,7 +76,12 @@ class ProductsIndex extends React.Component {
     }
   }
 
-  fetch() {
+  initialFetch(isInitialFetch) {
+    this.fetch(isInitialFetch)
+    this.props.fetchManyProductGroups({ isInitialFetch })
+  }
+
+  fetch(isInitialFetch) {
     const { pagination } = this.state
 
     const query = {
@@ -76,7 +89,7 @@ class ProductsIndex extends React.Component {
       per_page: pagination.perPage,
     }
 
-    this.props.fetchManyProducts({ query })
+    this.props.fetchManyProducts({ query, isInitialFetch })
   }
 
   handleFilterChange(key, value) {

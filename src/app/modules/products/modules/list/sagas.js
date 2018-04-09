@@ -5,13 +5,13 @@ import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
+import * as selectors from './selectors'
 import { reportErrorSaga } from '../../../app/sagas'
 import {
   selectors as filtersSelectors,
   actions as filtersActions,
 } from './modules/filters'
 import clean from '../../../../utils/objects/clean'
-import takeLocationChange from '../../../../utils/sagas/takeLocationChange'
 import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
 import putAndWait from '../../../../utils/sagas/putAndWait'
 
@@ -47,24 +47,28 @@ export function* fetchManyProductsSaga(action) {
   }
 }
 
-export function* saveOneSuccessSaga() {
-  yield put(actions.fetchMany())
-}
-
 export function* changeFiltersSuccessSaga() {
   yield put(actions.fetchMany())
 }
 
-export function* initSaga() {
-  yield putAndWait(actions.fetchMany(), actions.fetchManySuccess, actions.fetchManyFailed)
+export function initialFetchHandler(saga) {
+  return notifyInitialFetch(function* (action) {
+    if (!action.payload.isInitialFetch) {
+      yield call(saga, action)
+      return
+    }
+
+    if (yield select(selectors.getDidInitialFetch)) return
+    yield call(saga, action)
+    yield put(actions.initialFetchDone())
+  })
 }
 
 // ------------------------------------
 // Watchers
 // ------------------------------------
 export default function* () {
-  yield takeLatest(actions.fetchMany, fetchManyProductsSaga)
+  yield takeLatest(actions.fetchMany, initialFetchHandler(fetchManyProductsSaga))
   yield throttle(1000, filtersActions.changeFiltersSuccess, changeFiltersSuccessSaga)
   yield takeEvery(actions.fetchManyFailed, reportErrorSaga)
-  yield takeLocationChange({ path: '/', exact: true }, notifyInitialFetch(initSaga))
 }

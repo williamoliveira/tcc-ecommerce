@@ -3,14 +3,12 @@ import { replace } from 'react-router-redux'
 import qs from 'qs'
 import { put, takeLatest, call, take, fork, select, takeEvery } from 'redux-saga/effects'
 import * as actions from './actions'
+import * as selectors from './selectors'
 import { actions as authActions, selectors as authSelectors } from '../auth'
 import toast from '../../utils/toast'
 import { REHYDRATE } from '../../utils/reduxSagaPersistor'
 import companyApi from './services/companyApi'
 import productsApi from '../products/services/productsApi'
-import takeLocationChange from '../../utils/sagas/takeLocationChange'
-import notifyInitialFetch from './sagaUtils/notifyInitialFetch'
-import putAndWait from '../../utils/sagas/putAndWait'
 
 const getUserFriendlyMessageFromError = (error) => {
   // not axios error
@@ -55,9 +53,12 @@ export function* errorHandlerSaga({ payload, payload: { error, action } }) {
 function* beforeAppStartSaga() {
   const user = yield select(authSelectors.getUser)
   const accessToken = yield select(authSelectors.getAccessToken)
+  const company = yield select(selectors.getCompany)
 
-  yield put(actions.fetchCompany())
-  yield take([actions.fetchCompanySuccess, actions.fetchCompanyFailed])
+  if (!company) {
+    yield put(actions.fetchCompany())
+    yield take([actions.fetchCompanySuccess, actions.fetchCompanyFailed])
+  }
 
   if (!user && accessToken) {
     yield put(authActions.fetchUser())

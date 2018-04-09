@@ -6,6 +6,7 @@ import { SUB_MODULE_NAME } from './constants'
 
 const NAME = `${MODULE_NAME}/${SUB_MODULE_NAME}`
 
+export const initialFetchDone = createAction(`${NAME}/INITIAL_FETCH_DONE`)
 export const fetchOne = createAction(`${NAME}/FETCH_ONE`)
 export const fetchOneStarted = createAction(`${NAME}/FETCH_ONE_STARTED`)
 export const fetchOneSuccess = createAction(`${NAME}/FETCH_ONE_SUCCESS`)

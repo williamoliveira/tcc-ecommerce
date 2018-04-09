@@ -7,6 +7,8 @@ export const getStateSlice = state => state[KEY] || {}
 
 const getCurrentPageIds = state => getStateSlice(state).currentPageIds
 
+export const getDidInitialFetch = state => getStateSlice(state).didInitialFetch
+
 export const getCurrentPageProductGroups = createSelector(
   [getEntities, getCurrentPageIds],
   (entities, productGroupIds) => denormalizeList(productGroupIds, entities),

@@ -1,11 +1,11 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
+import * as selectors from './selectors'
 import putAndWait from '../../../../utils/sagas/putAndWait'
 import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
-import takeLocationChange from '../../../../utils/sagas/takeLocationChange'
 
 // ------------------------------------
 // Sub-routines
@@ -34,20 +34,22 @@ export function* fetchOneProductSaga(action) {
   }
 }
 
-export function* initSaga(action, { match }) {
-  yield putAndWait(
-    actions.fetchOne({ id: match.params.id }),
-    actions.fetchOneSuccess,
-    actions.fetchOneFailed,
-  )
+export function initialFetchHandler(saga) {
+  return notifyInitialFetch(function* (action) {
+    if (!action.payload.isInitialFetch) {
+      yield call(saga, action)
+      return
+    }
+
+    if (yield select(selectors.getDidInitialFetch)) return
+    yield call(saga, action)
+    yield put(actions.initialFetchDone())
+  })
 }
 
 // ------------------------------------
 // Watchers
 // ------------------------------------
-export function* watchers() {
-  yield takeLatest(actions.fetchOne, fetchOneProductSaga)
-  yield takeLocationChange({ path: '/:id', exact: true }, notifyInitialFetch(initSaga))
+export default function* () {
+  yield takeLatest(actions.fetchOne, initialFetchHandler(fetchOneProductSaga))
 }
-
-export default [watchers]

@@ -10,6 +10,7 @@ const initialState = {
   product: null,
   isLoading: false,
   error: false,
+  didInitialFetch: false,
 }
 
 export default createReducer(
@@ -33,6 +34,11 @@ export default createReducer(
       product: null,
       isLoading: false,
       error: parseAxiosError(payload.error),
+    }),
+
+    [actions.initialFetchDone]: state => ({
+      ...state,
+      didInitialFetch: true,
     }),
   },
   initialState,

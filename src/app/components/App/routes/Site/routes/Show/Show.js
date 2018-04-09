@@ -15,20 +15,23 @@ class ProductsShowBody extends Component {
     this.addItemToCart = this.addItemToCart.bind(this)
   }
 
+  bootstrap() {
+    this.fetch(true)
+  }
+
+  componentDidMount() {
+    this.fetch(true)
+  }
+
   componentWillMount() {
     const { setModel, validation } = this.props
-
-    setModel({
-      quantity: 1,
-    })
-
+    setModel({ quantity: 1 })
     validation.setRules({})
   }
 
-  fetch() {
+  fetch(isInitialFetch) {
     const { fetchOneProduct, match: { params: { id } } } = this.props
-
-    fetchOneProduct({ id })
+    fetchOneProduct({ id, isInitialFetch })
   }
 
   static renderGroupAndSubGroup(product) {

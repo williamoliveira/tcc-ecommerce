@@ -1,5 +1,5 @@
-import parseAxiosError from '../../../../utils/parseAxiosError'
 import { createReducer } from 'redux-act-light'
+import parseAxiosError from '../../../../utils/parseAxiosError'
 import { MODULE_NAME } from '../../constants'
 import * as actions from './actions'
 import { SUB_MODULE_NAME } from './constants'
@@ -25,6 +25,7 @@ const initialState = {
     from: 1,
     to: 1,
   },
+  didInitialFetch: false,
 }
 
 export default createReducer(
@@ -52,6 +53,11 @@ export default createReducer(
         state.fetchedNumber + (payload.pagination.to - payload.pagination.from),
       currentPageIds: payload.normalized.result || [],
       pagination: payload.pagination,
+    }),
+
+    [actions.initialFetchDone]: state => ({
+      ...state,
+      didInitialFetch: true,
     }),
   },
   initialState,
