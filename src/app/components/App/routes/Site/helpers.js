@@ -1,4 +1,4 @@
-import config from '../../../../../config'
+import config from '../../../../../../config'
 import defaultProductImg from '../../../../imgs/default_product.jpg'
 
 export const formatCurrency = (price = 0, prefix = 'R$ ') =>
