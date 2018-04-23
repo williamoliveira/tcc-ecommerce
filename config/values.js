@@ -68,7 +68,7 @@ const values = {
     /\.(css|scss|sass|sss|less)$/,
   ],
   serviceWorker: {
-    enabled: true,
+    enabled: EnvVars.bool('SERVICE_WORKER', false),
     fileName: 'sw.js',
     includePublicAssets: ['./**/*'],
     offlinePageFileName: 'offline.html',
