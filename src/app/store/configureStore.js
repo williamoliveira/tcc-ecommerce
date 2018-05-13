@@ -2,9 +2,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware } from 'react-router-redux'
 import { actions as appActions } from '../modules/app'
+import { injectReducer } from './hooks'
 import { makeRootReducer } from './reducers'
 import injectModules from '../modules'
-import { makeStartSagas } from './sagas';
+import { injectSaga, makeStartSagas } from './sagas';
 
 (typeof window !== 'undefined' ? window : global).log = (val, message = '[LOG]') => {
   console.log(message, val)
@@ -42,8 +43,12 @@ export default (state, { history, cookies }) => {
     asyncReducers: {},
     sagas: [],
     runningTasks: [],
-    runSaga: sagaMiddleware.run,
+    runSaga: saga => sagaMiddleware.run(saga, store),
     startSagas: makeStartSagas(store),
+    injectSaga: injectSaga(store),
+    injectReducer: injectReducer(store),
+    injectedModules: {},
+    injectModule: module => module(store),
   }
 
   injectModules(store)
@@ -55,7 +60,6 @@ export default (state, { history, cookies }) => {
   }
 
   return Promise.resolve()
-    .then(() => store.custom.startSagas())
     .then(() => store.dispatch(appActions.beforeAppStart()))
     .then(
       () =>

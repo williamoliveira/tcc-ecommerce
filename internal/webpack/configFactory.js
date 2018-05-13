@@ -5,6 +5,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import nodeExternals from 'webpack-node-externals'
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import { StatsWriterPlugin } from 'webpack-stats-plugin'
 import path from 'path'
 import webpack from 'webpack'
 import { log } from '../utils'
@@ -75,7 +76,7 @@ export default function (buildOptions) {
 
     output: {
       path: path.resolve(appRootDir.get(), bundleConfig.outputPath),
-      filename: ifProdClient('[name]-[chunkhash].js', '[name].js'),
+      filename: ifProdClient('[name]-[chunkhash].js', ifNode('index.js', '[name].js')),
       chunkFilename: '[name]-[chunkhash].js',
       libraryTarget: ifNode('commonjs2', 'var'),
       publicPath: ifDev(
@@ -101,6 +102,7 @@ export default function (buildOptions) {
     performance: ifProdClient({ hints: 'warning' }, false),
 
     optimization: {
+      runtimeChunk: isClient ? 'single' : false,
       minimizer: ifProdClient([
         new UglifyJsPlugin({
           uglifyOptions: {
@@ -147,6 +149,13 @@ export default function (buildOptions) {
     plugins: clean([
       ifNode(
         () =>
+          new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
+          }),
+      ),
+
+      ifNode(
+        () =>
           new webpack.BannerPlugin({
             banner: 'require("source-map-support").install();',
             raw: true,
@@ -170,9 +179,20 @@ export default function (buildOptions) {
           }),
       ),
 
+      ifClient(
+        () =>
+          new StatsWriterPlugin({
+            filename: path.resolve(
+              appRootDir.get(),
+              bundleConfig.outputPath,
+              config('webpackStatsFileName'),
+            ),
+          }),
+      ),
+
       ifDev(() => new webpack.NoEmitOnErrorsPlugin()),
 
-      ifElse(!config('serviceWorker.enabled'))(() => new HardSourceWebpackPlugin()),
+      // ifElse(!config('serviceWorker.enabled'))(() => new HardSourceWebpackPlugin()),
 
       ifDevClient(
         () =>
@@ -213,7 +233,8 @@ export default function (buildOptions) {
                     ifDev('transform-react-jsx-source'),
                     ifProd('transform-react-inline-elements'),
                     ifProd('transform-react-constant-elements'),
-                    'syntax-dynamic-import',
+                    // ifNode('syntax-dynamic-import'),
+                    'universal-import',
                   ]),
                 },
                 buildOptions,
@@ -232,7 +253,8 @@ export default function (buildOptions) {
               test: /(\.scss|\.css)$/,
               use: ifClient(
                 [
-                  ifProd(MiniCssExtractPlugin.loader, 'style-loader'),
+                  MiniCssExtractPlugin.loader,
+                  // ifProd(MiniCssExtractPlugin.loader, 'style-loader'),
                   {
                     loader: 'css-loader',
                     options: {

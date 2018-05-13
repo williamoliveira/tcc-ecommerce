@@ -191,7 +191,7 @@ export function* fetchSlidersSaga(action) {
 // ------------------------------------
 // Watchers
 // ------------------------------------
-export default function* () {
+export default function* (store) {
   if (process.env.BUILD_FLAG_IS_SERVER === 'true') {
     yield fork(initialFetchHandlerSaga)
   }

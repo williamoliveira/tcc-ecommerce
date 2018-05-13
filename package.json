@@ -40,6 +40,7 @@
     "app-root-dir": "1.0.2",
     "assign-deep": "0.4.7",
     "axios": "0.18.0",
+    "babel-plugin-universal-import": "^2.0.0",
     "bootstrap": "4.0.0",
     "classnames": "2.2.5",
     "compression": "1.7.2",
@@ -65,6 +66,7 @@
     "react-dom": "16.2.0",
     "react-helmet-async": "0.0.5",
     "react-hot-loader": "4.0.0",
+    "@7rulnik/react-loadable": "^5.3.4",
     "react-paginate": "^5.2.2",
     "react-redux": "5.0.7",
     "react-reformed": "1.1.2",
@@ -74,6 +76,7 @@
     "react-select": "^1.2.1",
     "react-slick": "^0.22.3",
     "react-toastify": "3.4.2",
+    "react-universal-component": "^2.9.0",
     "reactstrap": "5.0.0-beta",
     "recompose": "0.26.0",
     "redux": "3.7.2",
@@ -84,7 +87,10 @@
     "serialize-javascript": "1.4.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "2.0.4",
-    "uuid": "3.2.1"
+    "stats-webpack-plugin": "^0.6.2",
+    "uuid": "3.2.1",
+    "webpack-flush-chunks": "^1.2.3",
+    "webpack-stats-plugin": "^0.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",

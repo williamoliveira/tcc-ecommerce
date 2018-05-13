@@ -128,12 +128,12 @@ class ProductsIndex extends React.Component {
 
   render() {
     const {
-      products,
-      pagination,
-      productGroups,
-      isLoading,
-      filters,
-      sliders,
+      products = [],
+      pagination = {},
+      productGroups = [],
+      isLoading = false,
+      filters = {},
+      sliders = [],
     } = this.props
     const { pagination: localPagination } = this.state
 

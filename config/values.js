@@ -46,7 +46,7 @@ const values = {
       EnvVars.string('MEDIA_URL'),
       'unpkg.com',
       'cdnjs.cloudflare.com',
-      'twemoji.maxcdn.com',
+      's3.amazonaws.com',
       'i0.wp.com',
       'data:',
     ],
@@ -61,6 +61,7 @@ const values = {
   includeSourceMapsForOptimisedClientBundle: false,
   bundleSrcTypes: ['js', 'jsx', 'json'],
   bundleAssetsFileName: 'assets.json',
+  webpackStatsFileName: 'stats.json',
   nodeExternalsFileTypeWhitelist: [
     /\.(eot|woff|woff2|ttf|otf)$/,
     /\.(svg|png|jpg|jpeg|gif|ico)$/,

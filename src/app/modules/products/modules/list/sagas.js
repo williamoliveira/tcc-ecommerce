@@ -13,7 +13,6 @@ import {
 } from './modules/filters'
 import clean from '../../../../utils/objects/clean'
 import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
-import putAndWait from '../../../../utils/sagas/putAndWait'
 
 // ------------------------------------
 // Sub-routines
@@ -68,6 +67,7 @@ export function initialFetchHandler(saga) {
 // Watchers
 // ------------------------------------
 export default function* () {
+  console.log('products sagas loaded')
   yield takeLatest(actions.fetchMany, initialFetchHandler(fetchManyProductsSaga))
   yield throttle(1000, filtersActions.changeFiltersSuccess, changeFiltersSuccessSaga)
   yield takeEvery(actions.fetchManyFailed, reportErrorSaga)

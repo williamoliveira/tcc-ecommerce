@@ -1,16 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet-async'
 import Redirect from 'react-router-dom/Redirect'
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Button,
-  Row,
-  Col,
-  Form,
-  CardFooter,
-} from 'reactstrap'
 import LoginBox from './LoginBox'
 import RegisterBox from './RegisterBox'
 

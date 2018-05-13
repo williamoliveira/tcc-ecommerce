@@ -2,16 +2,7 @@ import React from 'react'
 import { compose } from 'recompose'
 import reformed from 'react-reformed'
 import Redirect from 'react-router-dom/Redirect'
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Button,
-  Row,
-  Col,
-  Form,
-  CardFooter,
-} from 'reactstrap'
+import { Form } from 'reactstrap'
 import withValidation from '../../../../../withValidation'
 import * as validators from '../../../../../../utils/validator/validators'
 

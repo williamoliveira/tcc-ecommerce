@@ -6,6 +6,7 @@
   ],
   "plugins": [
     "transform-class-properties",
-    "react-flow-props-to-prop-types"
+    "react-flow-props-to-prop-types",
+    "universal-import"
   ]
 }

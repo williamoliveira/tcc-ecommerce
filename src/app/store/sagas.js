@@ -1,5 +1,7 @@
 export const injectSaga = store => (saga) => {
   store.custom.sagas.push(saga)
+  const task = store.custom.runSaga(saga)
+  store.custom.runningTasks.push(task)
   return saga
 }
 

@@ -1,15 +1,16 @@
-import React from 'react'
-import { HelmetProvider } from 'react-helmet-async'
-import { render, hydrate } from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-import { ConnectedRouter } from 'react-router-redux'
+import React from 'react'
 import asyncBootstrapper from 'react-async-bootstrapper'
 import { AsyncComponentProvider } from 'react-async-component'
-import { Provider as ReduxProvider } from 'react-redux'
+import { hydrate, render } from 'react-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { AppContainer as ReactHotLoader } from 'react-hot-loader'
-import configureStore from '../app/store/configureStore'
+import Loadable from 'react-loadable'
+import { Provider as ReduxProvider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 import config from '../../config'
 import App from '../app/components/App'
+import configureStore from '../app/store/configureStore'
 
 const container = document.querySelector('#app')
 const supportsHistory = 'pushState' in window.history
@@ -26,23 +27,20 @@ async function renderApp(TheApp) {
 
   const app = (
     <ReactHotLoader>
-      <AsyncComponentProvider rehydrateState={asyncComponentsRehydrateState}>
-        <ReduxProvider store={store}>
-          <ConnectedRouter
-            history={history}
-            basename={config('basename')}
-            forceRefresh={!supportsHistory}
-          >
-            <HelmetProvider context={helmetContext}>
-              <TheApp />
-            </HelmetProvider>
-          </ConnectedRouter>
-        </ReduxProvider>
-      </AsyncComponentProvider>
+      <ReduxProvider store={store}>
+        <ConnectedRouter
+          history={history}
+          basename={config('basename')}
+          forceRefresh={!supportsHistory}
+        >
+          <HelmetProvider context={helmetContext}>
+            <TheApp />
+          </HelmetProvider>
+        </ConnectedRouter>
+      </ReduxProvider>
     </ReactHotLoader>
   )
 
-  await asyncBootstrapper(app)
   await renderOrHydrate(app, container)
 }
 

@@ -1,11 +1,11 @@
-import React, { Children } from 'react'
 import PropTypes from 'prop-types'
+import React, { Children } from 'react'
 import serialize from 'serialize-javascript'
-import HTML from '../../../../internal/components/HTML'
-import ClientConfig from '../../../../internal/components/ClientConfig'
 import config from '../../../../config'
-import ifElse from '../../../app/utils/logic/ifElse'
+import ClientConfig from '../../../../internal/components/ClientConfig'
+import HTML from '../../../../internal/components/HTML'
 import clean from '../../../app/utils/arrays/clean'
+import ifElse from '../../../app/utils/logic/ifElse'
 import getClientBundleEntryAssets from './getClientBundleEntryAssets'
 
 function KeyedComponent({ children }) {
@@ -37,6 +37,7 @@ function ServerHTML(props) {
     nonce,
     reactAppString,
     children,
+    bundles,
   } = props
 
   const inlineScript = body => (
@@ -52,9 +53,8 @@ function ServerHTML(props) {
     ...ifElse(helmet)(() => helmet.base.toComponent(), []),
     ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
-    ifElse(clientEntryAssets && clientEntryAssets.css)(() =>
-      stylesheetTag(clientEntryAssets.css),
-    ),
+    stylesheetTag(clientEntryAssets.index.css),
+    ...bundles.css.map(bundle => stylesheetTag(bundle)),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
   ])
 
@@ -84,9 +84,9 @@ function ServerHTML(props) {
         )}.js?t=${Date.now()}`,
       ),
     ),
-    ifElse(!config('disableCSR') && clientEntryAssets && clientEntryAssets.js)(() =>
-      scriptTag(clientEntryAssets.js),
-    ),
+    scriptTag(clientEntryAssets.runtime.js),
+    ...ifElse(!config('disableCSR'))(() => bundles.js.map(bundle => scriptTag(bundle))),
+    ifElse(!config('disableCSR'))(() => scriptTag(clientEntryAssets.index.js)),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
   ])
 
@@ -113,6 +113,7 @@ ServerHTML.propTypes = {
   nonce: PropTypes.string,
   reactAppString: PropTypes.string,
   children: PropTypes.node,
+  bundles: PropTypes.object.isRequired,
 }
 
 export default ServerHTML

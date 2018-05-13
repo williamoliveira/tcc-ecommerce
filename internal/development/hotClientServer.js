@@ -1,8 +1,12 @@
 import express from 'express'
+import fs from 'fs'
+import path from 'path'
+import appRootDir from 'app-root-dir'
 import createWebpackMiddleware from 'webpack-dev-middleware'
 import createWebpackHotMiddleware from 'webpack-hot-middleware'
 import ListenerManager from './listenerManager'
 import { log } from '../utils'
+import config from '../../config'
 
 class HotClientServer {
   constructor(port, compiler) {
@@ -41,6 +45,26 @@ class HotClientServer {
     })
 
     compiler.plugin('done', (stats) => {
+      const statsJsonFilePath = path.resolve(appRootDir.get(), 'build/client/stats.json')
+
+      fs
+        .writeFile(
+          statsJsonFilePath,
+          JSON.stringify(
+            stats.toJson({
+              hash: true,
+              publicPath: true,
+              assets: true,
+              chunks: true,
+              modules: true,
+              source: false,
+              errorDetails: false,
+              timings: false,
+            }),
+          ),
+        )
+        .then(() => console.log('Written stats.js'))
+
       if (stats.hasErrors()) {
         log({
           title: 'client',

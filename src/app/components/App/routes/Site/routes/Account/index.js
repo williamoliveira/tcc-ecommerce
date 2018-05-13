@@ -1,1 +1,1 @@
-export { default } from './AccountContainer'
+export { default } from './AccountAsync'

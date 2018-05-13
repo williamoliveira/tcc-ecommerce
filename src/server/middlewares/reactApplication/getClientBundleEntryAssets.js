@@ -29,6 +29,6 @@ export default function getClientBundleEntryAssets() {
       'No asset data found for expected "index" entry chunk of client bundle.',
     )
   }
-  resultCache = assetsJSONCache.index
+  resultCache = assetsJSONCache
   return resultCache
 }

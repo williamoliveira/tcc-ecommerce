@@ -1,5 +1,9 @@
 import { connect } from 'react-redux'
-import Home from './List'
+import { storeShape } from 'react-redux/lib/utils/PropTypes'
+import { compose, getContext, withProps } from 'recompose'
+import productGroupsModule from '../../../../../../modules/productGroups'
+import productsModule from '../../../../../../modules/products'
+import List from './List'
 import {
   selectors as appSelectors,
   actions as appActions,
@@ -37,4 +41,16 @@ const actionCreators = {
   changeFilters: filterActions.changeFilters,
 }
 
-export default connect(mapStateToProps, actionCreators)(Home)
+export default compose(
+  getContext({
+    store: storeShape.isRequired,
+  }),
+  withProps(({ store }) => {
+    if (store.custom.injectedModules.list) return
+    store.custom.injectedModules.list = true
+
+    store.custom.injectModule(productsModule)
+    store.custom.injectModule(productGroupsModule)
+  }),
+  connect(mapStateToProps, actionCreators),
+)(List)

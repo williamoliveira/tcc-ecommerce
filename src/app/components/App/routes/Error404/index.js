@@ -1,26 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { asyncComponent } from 'react-async-component'
 
-class Error404 extends Component {
-  componentWillMount() {
-    const { staticContext } = this.props
-    if (staticContext) {
-      staticContext.missed = true
-    }
-  }
-
-  render() {
-    return <div className="mt-5 text-center">Página não encontrada.</div>
-  }
-}
-
-Error404.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  staticContext: PropTypes.object,
-}
-
-Error404.defaultProps = {
-  staticContext: {},
-}
-
-export default Error404
+export default asyncComponent({
+  resolve: () => import(/* webpackChunkName: "error404" */ './Error404'),
+})
