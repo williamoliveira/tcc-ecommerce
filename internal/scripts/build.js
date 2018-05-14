@@ -9,7 +9,7 @@ const [x, y, ...args] = process.argv
 
 const optimize = args.findIndex(arg => arg === '--optimize') !== -1
 
-exec(`rimraf ${pathResolve(appRootDir.get(), config('buildOutputPath'))}`)
+exec(`rimraf ${pathResolve(appRootDir.get(), config('buildOutputPath'))}/*`)
 
 Object.keys(config('bundles')).forEach((bundleName) => {
   const compiler = webpack(webpackConfigFactory({ target: bundleName, optimize }))
