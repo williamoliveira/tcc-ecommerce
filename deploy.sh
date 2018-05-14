@@ -9,28 +9,22 @@ ssh memult@memult.com.br\
  && git pull origin master\
  && yarn install\
  && yarn build\
- && pm2 start build/server -f --name=tcc-ecommerce-csr\
- && cd /home/memult/sources/tcc/ecommerce-ssr/\
- && git reset --hard\
- && git pull origin master\
- && yarn install\
- && yarn build\
- && pm2 start build/server -f --name=tcc-ecommerce-ssr\
+ && pm2 restart tcc-ecommerce-csr\
  && cd /home/memult/sources/tcc/ecommerce-ssr-csr/\
  && git reset --hard\
  && git pull origin master\
  && yarn install\
  && yarn build\
- && pm2 start build/server -f --name=tcc-ecommerce-ssr-csr'\
+ && pm2 restart tcc-ecommerce-ssr-csr\
  && cd /home/memult/sources/tcc/ecommerce-ssr-csr-cs/\
  && git reset --hard\
  && git pull origin master\
  && yarn install\
  && yarn build\
- && pm2 start build/server -f --name=tcc-ecommerce-ssr-csr-cs'\
+ && pm2 restart tcc-ecommerce-ssr-csr-cs\
  && cd /home/memult/sources/tcc/ecommerce-csr-cs/\
  && git reset --hard\
  && git pull origin master\
  && yarn install\
  && yarn build\
- && pm2 start build/server -f --name=tcc-ecommerce-csr-cs'\
+ && pm2 restart tcc-ecommerce-csr-cs'

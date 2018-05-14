@@ -137,10 +137,6 @@ class ProductsIndex extends React.Component {
 
     return (
       <React.Fragment>
-        <Helmet>
-          <title>Usuários</title>
-        </Helmet>
-
         {!!sliders.length && (
           <section
             className="hero-slider"
