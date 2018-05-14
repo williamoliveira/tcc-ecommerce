@@ -26,16 +26,17 @@ const values = {
 
   disableSSR: EnvVars.bool('DISABLE_SSR', false),
   disableCSR: EnvVars.bool('DISABLE_CSR', false),
+  disableCodeSplitting: EnvVars.bool('DISABLE_CS', false),
   browserCacheMaxAge: '365d',
   polyfillIO: {
-    enabled: process.env.NODE_ENV !== 'development',
+    enabled: false,
     url: '//cdn.polyfill.io/v2/polyfill.min.js',
     features: ['default', 'es6'],
   },
   htmlPage: {
-    titleTemplate: 'Memult - %s',
-    defaultTitle: 'Memult',
-    description: 'Marketing Empresarial Multicanal',
+    titleTemplate: 'Delicata Calçados - %s',
+    defaultTitle: 'Delicata Calçados',
+    description: 'Delicata Calçados',
   },
   cspExtensions: {
     childSrc: [],

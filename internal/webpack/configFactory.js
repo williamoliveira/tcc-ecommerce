@@ -5,7 +5,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import nodeExternals from 'webpack-node-externals'
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import { StatsWriterPlugin } from 'webpack-stats-plugin'
+import { ReactLoadablePlugin } from '@7rulnik/react-loadable/webpack'
 import path from 'path'
 import webpack from 'webpack'
 import { log } from '../utils'
@@ -169,6 +169,7 @@ export default function (buildOptions) {
         BUILD_FLAG_IS_SERVER: JSON.stringify(isServer),
         BUILD_FLAG_IS_NODE: JSON.stringify(isNode),
         BUILD_FLAG_IS_DEV: JSON.stringify(isDev),
+        DISABLE_CODE_SPLITTING: JSON.stringify(config('disableCodeSplitting')),
       }),
 
       ifClient(
@@ -181,7 +182,7 @@ export default function (buildOptions) {
 
       ifClient(
         () =>
-          new StatsWriterPlugin({
+          new ReactLoadablePlugin({
             filename: path.resolve(
               appRootDir.get(),
               bundleConfig.outputPath,
@@ -234,7 +235,7 @@ export default function (buildOptions) {
                     ifProd('transform-react-inline-elements'),
                     ifProd('transform-react-constant-elements'),
                     // ifNode('syntax-dynamic-import'),
-                    'universal-import',
+                    '@7rulnik/react-loadable/babel',
                   ]),
                 },
                 buildOptions,

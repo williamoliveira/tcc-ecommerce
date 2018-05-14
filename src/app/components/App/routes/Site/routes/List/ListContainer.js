@@ -1,29 +1,26 @@
 import { connect } from 'react-redux'
 import { storeShape } from 'react-redux/lib/utils/PropTypes'
 import { compose, getContext, withProps } from 'recompose'
+import { selectors as appSelectors } from '../../../../../../modules/app'
+import {
+  actions as cartActions,
+  selectors as cartSelectors,
+} from '../../../../../../modules/cart'
 import productGroupsModule from '../../../../../../modules/productGroups'
+import {
+  actions as productGroupActions,
+  selectors as productGroupSelectors,
+} from '../../../../../../modules/productGroups/modules/list'
 import productsModule from '../../../../../../modules/products'
-import List from './List'
 import {
-  selectors as appSelectors,
-  actions as appActions,
-} from '../../../../../../modules/app'
-import {
-  selectors as productSelectors,
   actions as productActions,
+  selectors as productSelectors,
 } from '../../../../../../modules/products/modules/list'
 import {
-  selectors as filterSelectors,
   actions as filterActions,
+  selectors as filterSelectors,
 } from '../../../../../../modules/products/modules/list/modules/filters'
-import {
-  selectors as productGroupSelectors,
-  actions as productGroupActions,
-} from '../../../../../../modules/productGroups/modules/list'
-import {
-  selectors as cartSelectors,
-  actions as cartActions,
-} from '../../../../../../modules/cart'
+import List from './List'
 
 const mapStateToProps = state => ({
   products: productSelectors.getCurrentPageProducts(state),
@@ -42,15 +39,10 @@ const actionCreators = {
 }
 
 export default compose(
-  getContext({
-    store: storeShape.isRequired,
-  }),
+  getContext({ store: storeShape.isRequired }),
   withProps(({ store }) => {
-    if (store.custom.injectedModules.list) return
-    store.custom.injectedModules.list = true
-
-    store.custom.injectModule(productsModule)
-    store.custom.injectModule(productGroupsModule)
+    store.custom.injectModule('products', productsModule)
+    store.custom.injectModule('productGroups', productGroupsModule)
   }),
   connect(mapStateToProps, actionCreators),
 )(List)

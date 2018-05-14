@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, Col, Row } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 class Review extends React.Component {

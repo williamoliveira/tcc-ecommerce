@@ -5,24 +5,10 @@ import Link from 'react-router-dom/Link'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import 'react-select/dist/react-select.css'
-import {
-  Button,
-  ButtonDropdown,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Col,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Row,
-  Table,
-} from 'reactstrap'
+import { Col, Row, Table } from 'reactstrap'
 import CardLoading from '../../../../../../../CardLoading'
-import IfUserCan from '../../../../../../../IfUserCan'
-import FormRoute from './routes/Form'
 import DeleteRoute from './routes/Delete'
+import FormRoute from './routes/Form'
 
 class List extends React.Component {
   constructor(props) {

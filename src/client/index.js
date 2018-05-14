@@ -5,7 +5,7 @@ import { AsyncComponentProvider } from 'react-async-component'
 import { hydrate, render } from 'react-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { AppContainer as ReactHotLoader } from 'react-hot-loader'
-import Loadable from 'react-loadable'
+import Loadable from '@7rulnik/react-loadable'
 import { Provider as ReduxProvider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import config from '../../config'
@@ -41,6 +41,7 @@ async function renderApp(TheApp) {
     </ReactHotLoader>
   )
 
+  await Loadable.preloadReady()
   await renderOrHydrate(app, container)
 }
 

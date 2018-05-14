@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { Button } from 'reactstrap'
 import { formatCurrency, getProductThumbUrl } from '../../helpers'
 import { UNITS_PER_PRODUCT } from '../../constants'
 
-export class Cart extends Component {
+class Cart extends Component {
   constructor() {
     super()
     this.removeItemFromCart = this.removeItemFromCart.bind(this)

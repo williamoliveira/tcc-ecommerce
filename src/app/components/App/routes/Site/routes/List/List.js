@@ -1,28 +1,11 @@
 /* eslint-disable no-script-url */
-import identity from 'lodash/identity'
-import pickBy from 'lodash/pickBy'
 import chunk from 'lodash/chunk'
 import React from 'react'
 import Helmet from 'react-helmet-async'
 import Link from 'react-router-dom/Link'
 import 'react-select/dist/react-select.css'
 import Slider from 'react-slick'
-import {
-  Button,
-  ButtonDropdown,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Col,
-  Container,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Input,
-  Row,
-  Table,
-} from 'reactstrap'
+import { Button, Col, Container, Input, Row } from 'reactstrap'
 import cns from 'classnames'
 import ReactPaginate from 'react-paginate'
 import Toggler from '../../../../../Toggler'
@@ -143,7 +126,7 @@ class ProductsIndex extends React.Component {
     const currentPage =
       (localPagination.page || 1) <= pagination.lastPage
         ? localPagination.page || 1
-        : pagination.lastPage
+        : pagination.lastPage || 1
 
     const sliderOptions = {
       dots: true,
@@ -181,13 +164,13 @@ class ProductsIndex extends React.Component {
                         </div>
                         <Link
                           className="btn btn-primary scale-up delay-1"
-                          to={`/${product.id}`}
+                          to={`/p/${product.id}`}
                         >
                           Ver produto
                         </Link>
                       </div>
                       <div className="col-md-6 padding-bottom-2x mb-3">
-                        <Link to={`/${product.id}`}>
+                        <Link to={`/p/${product.id}`}>
                           <img
                             className="d-block mx-auto img-thumbnail"
                             src={getProductFullImgUrl(product)}
@@ -288,11 +271,11 @@ class ProductsIndex extends React.Component {
                     {productsChunk.map(product => (
                       <Col md={4} key={product.id}>
                         <div className="product-card">
-                          <Link to={`/${product.id}`} className="product-thumb">
+                          <Link to={`/p/${product.id}`} className="product-thumb">
                             <img src={getProductThumbUrl(product)} alt={product.name} />
                           </Link>
                           <h3 className="product-title">
-                            <Link to={`/${product.id}`} className="product-thumb">
+                            <Link to={`/p/${product.id}`} className="product-thumb">
                               {product.name}
                             </Link>
                           </h3>

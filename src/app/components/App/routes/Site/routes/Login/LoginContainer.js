@@ -1,10 +1,12 @@
 import { connect } from 'react-redux'
+import { storeShape } from 'react-redux/lib/utils/PropTypes'
+import { compose, getContext, withProps } from 'recompose'
 import Login from './Login'
 import {
   actions as authActions,
   selectors as authSelectors,
 } from '../../../../../../modules/auth'
-import {
+import registerModule, {
   actions as registerActions,
   selectors as registerSelectors,
 } from '../../../../../../modules/register'
@@ -20,4 +22,10 @@ const actionCreators = {
   register: registerActions.register,
 }
 
-export default connect(mapStateToProps, actionCreators)(Login)
+export default compose(
+  getContext({ store: storeShape.isRequired }),
+  withProps(({ store }) => {
+    store.custom.injectModule('register', registerModule)
+  }),
+  connect(mapStateToProps, actionCreators),
+)(Login)

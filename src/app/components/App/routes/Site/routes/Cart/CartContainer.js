@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
 import { selectors, actions } from '../../../../../../modules/cart'
 import Cart from './Cart'
 
@@ -12,4 +13,4 @@ const actionCreators = {
   completeOrder: actions.completeOrder,
 }
 
-export default connect(mapStateToProps, actionCreators)(Cart)
+export default compose(connect(mapStateToProps, actionCreators))(Cart)

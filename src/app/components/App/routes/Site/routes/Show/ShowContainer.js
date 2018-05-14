@@ -1,10 +1,12 @@
 import { connect } from 'react-redux'
+import { storeShape } from 'react-redux/lib/utils/PropTypes'
 import { withRouter } from 'react-router-dom'
-import { selectors } from '../../../../../../modules/products'
+import { compose, getContext, withProps } from 'recompose'
 import {
   actions as cartActions,
   selectors as cartSelectors,
 } from '../../../../../../modules/cart'
+import productsModule, { selectors } from '../../../../../../modules/products'
 import { actions } from '../../../../../../modules/products/modules/show'
 import Show from './Show'
 
@@ -18,4 +20,11 @@ const actionCreators = {
   addItemToCart: cartActions.addItem,
 }
 
-export default withRouter(connect(mapStateToProps, actionCreators)(Show))
+export default compose(
+  getContext({ store: storeShape.isRequired }),
+  withProps(({ store }) => {
+    store.custom.injectModule('products', productsModule)
+  }),
+  withRouter,
+  connect(mapStateToProps, actionCreators),
+)(Show)

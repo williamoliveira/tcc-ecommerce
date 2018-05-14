@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet-async'
 import { Link, Route, Switch } from 'react-router-dom'
-import { Button, Card, CardBody, Col, Container, Row } from 'reactstrap'
+import { Container } from 'reactstrap'
 import Addresses from './Addresses'
 import Review from './Review'
 import Completed from './Completed'
 
-export class Checkout extends Component {
+class Checkout extends Component {
   render() {
     const { match } = this.props
 

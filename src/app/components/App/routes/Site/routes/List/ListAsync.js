@@ -1,11 +1,6 @@
-import universal from 'react-universal-component'
+import Loadable from '@7rulnik/react-loadable'
 
-export default universal(() => import('./ListContainer'), {
-  loading: () => {
-    console.log('Loading')
-    return 'Carregando...'
-  },
-  onLoad(module, options) {
-    console.log('onLoad', options)
-  },
+export default Loadable({
+  loader: () => import(/* webpackChunkName: "list" */ './ListContainer'),
+  loading: () => null,
 })

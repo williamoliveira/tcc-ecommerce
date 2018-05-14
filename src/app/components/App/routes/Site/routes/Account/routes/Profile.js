@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardFooter, Col, Form, Row } from 'reactstrap'
+import { Button, Form } from 'reactstrap'
 import reformed from 'react-reformed'
 import { compose } from 'recompose'
 import withValidation from '../../../../../../withValidation'

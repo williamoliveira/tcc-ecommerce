@@ -1,5 +1,6 @@
-import { asyncComponent } from 'react-async-component'
+import Loadable from '@7rulnik/react-loadable'
 
-export default asyncComponent({
-  resolve: () => import(/* webpackChunkName: "login" */ './LoginContainer'),
+export default Loadable({
+  loader: () => import(/* webpackChunkName: "login" */ './LoginContainer'),
+  loading: () => null,
 })

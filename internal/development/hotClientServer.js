@@ -45,26 +45,6 @@ class HotClientServer {
     })
 
     compiler.plugin('done', (stats) => {
-      const statsJsonFilePath = path.resolve(appRootDir.get(), 'build/client/stats.json')
-
-      fs
-        .writeFile(
-          statsJsonFilePath,
-          JSON.stringify(
-            stats.toJson({
-              hash: true,
-              publicPath: true,
-              assets: true,
-              chunks: true,
-              modules: true,
-              source: false,
-              errorDetails: false,
-              timings: false,
-            }),
-          ),
-        )
-        .then(() => console.log('Written stats.js'))
-
       if (stats.hasErrors()) {
         log({
           title: 'client',

@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
+import { storeShape } from 'react-redux/lib/utils/PropTypes'
 import withRouter from 'react-router-dom/withRouter'
+import { getContext, withProps } from 'recompose'
 import compose from 'recompose/compose'
-import {
+import addressesModule, {
   actions,
   selectors,
 } from '../../../../../../../../modules/addresses/modules/list'
@@ -18,4 +20,11 @@ const actionCreators = {
   fetchManyAddresses: actions.fetchMany,
 }
 
-export default compose(withRouter, connect(mapStateToProps, actionCreators))(List)
+export default compose(
+  getContext({ store: storeShape.isRequired }),
+  withProps(({ store }) => {
+    store.custom.injectModule('addresses', addressesModule)
+  }),
+  withRouter,
+  connect(mapStateToProps, actionCreators),
+)(List)

@@ -4,7 +4,6 @@ import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
 import * as selectors from './selectors'
-import putAndWait from '../../../../utils/sagas/putAndWait'
 import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
 
 // ------------------------------------

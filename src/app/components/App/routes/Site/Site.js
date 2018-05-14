@@ -1,18 +1,18 @@
 import React from 'react'
-import withRouter from 'react-router-dom/withRouter'
-import Switch from 'react-router-dom/Switch'
 import Route from 'react-router-dom/Route'
+import Switch from 'react-router-dom/Switch'
+import withRouter from 'react-router-dom/withRouter'
 import pure from 'recompose/pure'
-import Header from './Header'
+import PrivateRoute from '../../../PrivateRoute'
 import Error404 from '../Error404'
+import Footer from './Footer'
+import Header from './Header'
 import AccountRoute from './routes/Account'
-import ListRoute from './routes/List'
-import ShowRoute from './routes/Show'
 import CartRoute from './routes/Cart'
 import CheckoutRoute from './routes/Checkout'
+import ListRoute from './routes/List'
 import LoginRoute from './routes/Login'
-import Footer from './Footer'
-import PrivateRoute from '../../../PrivateRoute'
+import ShowRoute from './routes/Show'
 
 const Dashboard = () => (
   <React.Fragment>
@@ -24,7 +24,7 @@ const Dashboard = () => (
       <Route path="/checkout" component={CheckoutRoute} />
       <PrivateRoute path="/account" component={AccountRoute} />
       <Route exact path="/" component={ListRoute} />
-      <Route path="/:id" component={ShowRoute} />
+      <Route path="/p/:id" component={ShowRoute} />
 
       <Route component={Error404} />
     </Switch>

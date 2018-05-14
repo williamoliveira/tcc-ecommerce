@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet-async'
-import { Button, Card, CardBody, CardFooter, Col, Form, Row } from 'reactstrap'
-import { Link, NavLink, Route, Switch } from 'react-router-dom'
-import { compose } from 'recompose'
+import { NavLink, Route, Switch } from 'react-router-dom'
 import defaultUserCoverUrl from '../../../../../../imgs/default_user_cover.jpg'
 import { makeImageUrl } from '../../helpers'
-import ProfileRoute from './routes/Profile'
 import AddressesRoute from './routes/Addresses'
+import ProfileRoute from './routes/Profile'
 
 class Profile extends Component {
   render() {

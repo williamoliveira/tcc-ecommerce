@@ -1,10 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Menu from './Menu'
-import {
-  selectors as appSelectors,
-  actions as appActions,
-} from '../../../../../../modules/app'
+import { selectors as appSelectors } from '../../../../../../modules/app'
 import {
   selectors as authSelectors,
   actions as authActions,

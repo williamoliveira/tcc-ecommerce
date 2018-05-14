@@ -29,7 +29,8 @@ export default (state, { history, cookies }) => {
   const enhancers = [applyMiddleware(...middlewares)]
 
   if (process.env.BUILD_FLAG_IS_DEV === 'true') {
-    const devToolsEnhancer = require('redux-devtools-extension').devToolsEnhancer
+    // eslint-disable-next-line global-require,import/no-extraneous-dependencies
+    const { devToolsEnhancer } = require('redux-devtools-extension')
     enhancers.push(devToolsEnhancer())
   }
 
@@ -48,13 +49,18 @@ export default (state, { history, cookies }) => {
     injectSaga: injectSaga(store),
     injectReducer: injectReducer(store),
     injectedModules: {},
-    injectModule: module => module(store),
+    injectModule(name, module) {
+      if (this.injectedModules[name]) return
+      module(store)
+      this.injectedModules[name] = true
+    },
   }
 
   injectModules(store)
 
   if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
     module.hot.accept('./reducers', () => {
+      // eslint-disable-next-line global-require
       require('./reducers').reloadReducers(store)
     })
   }

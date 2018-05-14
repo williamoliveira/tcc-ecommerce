@@ -2,19 +2,7 @@
 import React from 'react'
 import Link from 'react-router-dom/Link'
 import NavLink from 'react-router-dom/NavLink'
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  Dropdown,
-  DropdownMenu,
-  DropdownToggle,
-  Badge,
-  UncontrolledDropdown,
-  Button,
-} from 'reactstrap'
+import { NavItem } from 'reactstrap'
 import { formatCurrency, getProductThumbUrl, imgCdn, makeImageUrl } from '../../helpers'
 
 const NavItemLink = ({ children, to, disabled = false }) => (
