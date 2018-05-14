@@ -7,7 +7,7 @@ import addressesModule, {
   actions,
   selectors,
 } from '../../../../../../../../modules/addresses/modules/list'
-import List from './List'
+import Addresses from './Addresses'
 
 const mapStateToProps = state => ({
   addresses: selectors.getCurrentPageAddresses(state),
@@ -27,4 +27,4 @@ export default compose(
   }),
   withRouter,
   connect(mapStateToProps, actionCreators),
-)(List)
+)(Addresses)

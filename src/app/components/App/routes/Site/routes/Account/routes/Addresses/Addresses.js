@@ -10,7 +10,7 @@ import CardLoading from '../../../../../../../CardLoading'
 import DeleteRoute from './routes/Delete'
 import FormRoute from './routes/Form'
 
-class List extends React.Component {
+class Addresses extends React.Component {
   constructor(props) {
     super(props)
 
@@ -148,4 +148,4 @@ class List extends React.Component {
   }
 }
 
-export default List
+export default Addresses
