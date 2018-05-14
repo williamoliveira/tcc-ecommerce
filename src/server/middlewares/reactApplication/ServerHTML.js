@@ -54,9 +54,13 @@ function ServerHTML(props) {
     ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
     stylesheetTag(clientEntryAssets.index.css),
-    ...bundles
-      .filter(bundle => bundle.file.endsWith('.css'))
-      .map(bundle => stylesheetTag(bundle.publicPath)),
+    ...ifElse(bundles)(
+      () =>
+        bundles
+          .filter(bundle => bundle.file.endsWith('.css'))
+          .map(bundle => stylesheetTag(bundle.publicPath)),
+      [],
+    ),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
   ])
 
@@ -87,11 +91,13 @@ function ServerHTML(props) {
       ),
     ),
     scriptTag(clientEntryAssets.runtime.js),
-    ...ifElse(!config('disableCSR'))(() =>
-      bundles
-        .filter(bundle => bundle.file.endsWith('.js'))
-        .filter(bundle => !bundle.name.endsWith('index.js'))
-        .map(bundle => scriptTag(bundle.publicPath)),
+    ...ifElse(bundles && !config('disableCSR'))(
+      () =>
+        bundles
+          .filter(bundle => bundle.file.endsWith('.js'))
+          .filter(bundle => !bundle.name.endsWith('index.js'))
+          .map(bundle => scriptTag(bundle.publicPath)),
+      [],
     ),
     ifElse(!config('disableCSR'))(() => scriptTag(clientEntryAssets.index.js)),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
@@ -120,7 +126,7 @@ ServerHTML.propTypes = {
   nonce: PropTypes.string,
   reactAppString: PropTypes.string,
   children: PropTypes.node,
-  bundles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  bundles: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default ServerHTML
