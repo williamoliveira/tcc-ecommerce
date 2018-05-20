@@ -53,12 +53,6 @@ export function* errorHandlerSaga({ payload, payload: { error, action } }) {
 function* beforeAppStartSaga() {
   const user = yield select(authSelectors.getUser)
   const accessToken = yield select(authSelectors.getAccessToken)
-  const company = yield select(selectors.getCompany)
-
-  if (!company) {
-    yield put(actions.fetchCompany())
-    yield take([actions.fetchCompanySuccess, actions.fetchCompanyFailed])
-  }
 
   if (!user && accessToken) {
     yield put(authActions.fetchUser())
@@ -159,18 +153,6 @@ export function* rehydrateDoneSaga() {
   yield put(actions.rehydrationDone())
 }
 
-export function* fetchCompanySaga(action) {
-  try {
-    yield put(actions.fetchCompanyStarted())
-
-    const res = yield call(companyApi.fetch)
-
-    yield put(actions.fetchCompanySuccess(res.data))
-  } catch (error) {
-    yield put(actions.fetchCompanyFailed({ error, action }))
-  }
-}
-
 export function* fetchSlidersSaga(action) {
   try {
     yield put(actions.fetchSlidersStarted())
@@ -201,7 +183,5 @@ export default function* (store) {
   yield takeEvery(actions.error, errorHandlerSaga)
   yield takeEvery(actions.showToast, showToastSaga)
   yield takeEvery(REHYDRATE, rehydrateDoneSaga)
-  yield takeLatest(actions.fetchCompany, fetchCompanySaga)
-  yield takeLatest(actions.fetchSliders, fetchSlidersSaga)
   yield fork(readySaga)
 }

@@ -274,14 +274,14 @@ export default function (buildOptions) {
               ),
             }),
 
-            ifClient({
+            ifElse(isClient || isServer)(() => ({
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               loader: 'url-loader',
               options: {
                 limit: 10000,
                 name: 'static/[hash].[ext]',
               },
-            }),
+            })),
 
             ifElse(isClient || isServer)(() => ({
               loader: 'file-loader',

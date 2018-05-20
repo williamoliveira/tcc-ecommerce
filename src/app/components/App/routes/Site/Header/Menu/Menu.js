@@ -3,7 +3,9 @@ import React from 'react'
 import Link from 'react-router-dom/Link'
 import NavLink from 'react-router-dom/NavLink'
 import { NavItem } from 'reactstrap'
-import { formatCurrency, getProductThumbUrl, imgCdn, makeImageUrl } from '../../helpers'
+import config from '../../../../../../../../config'
+import logoUrl from '../../../../../../imgs/logo.png'
+import { formatCurrency, getProductThumbUrl, makeImageUrl } from '../../helpers'
 
 const NavItemLink = ({ children, to, disabled = false }) => (
   <NavItem>
@@ -56,9 +58,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    const {
-      company, user, cart, logout,
-    } = this.props
+    const { user, cart, logout } = this.props
 
     return (
       <header className="navbar navbar-sticky">
@@ -77,21 +77,13 @@ class Menu extends React.Component {
         </form>
         <div className="site-branding">
           <div className="inner">
-            {company ? (
-              <Link to="/" className="site-logo">
-                {company.logo_url ? (
-                  <img
-                    src={imgCdn(`${company.logo_url}?h=44`)}
-                    alt={company.fantasy_name || company.company_name}
-                    style={{ height: 44, width: 'auto' }}
-                  />
-                ) : (
-                  <h2>{company.fantasy_name || company.company_name}</h2>
-                )}
-              </Link>
-            ) : (
-              'Carregando...'
-            )}
+            <Link to="/" className="site-logo">
+              <img
+                src={logoUrl}
+                alt={config('htmlPage.defaultTitle')}
+                style={{ height: 60, width: 'auto' }}
+              />
+            </Link>
           </div>
         </div>
         <nav className="site-menu">

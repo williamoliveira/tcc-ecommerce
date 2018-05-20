@@ -9,7 +9,6 @@ import { NAME } from './constants'
 export const appKey = `${NAME}`
 
 const initialState = {
-  company: null,
   sliders: [],
 }
 
@@ -18,10 +17,6 @@ export const appReducer = createReducer(
     [actions.setMetadata]: (state, { payload }) => ({
       ...state,
       ...payload,
-    }),
-    [actions.fetchCompanySuccess]: (state, { payload }) => ({
-      ...state,
-      company: payload,
     }),
     [actions.fetchSlidersSuccess]: (state, { payload }) => ({
       ...state,

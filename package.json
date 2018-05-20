@@ -37,6 +37,7 @@
     ]
   },
   "dependencies": {
+    "@7rulnik/react-loadable": "^5.3.4",
     "app-root-dir": "1.0.2",
     "assign-deep": "0.4.7",
     "axios": "0.18.0",
@@ -57,6 +58,8 @@
     "moize": "5.0.1",
     "normalizr": "3.2.4",
     "offline-plugin": "5.0.0-0",
+    "prerender": "^5.4.2",
+    "prerender-node": "^3.1.1",
     "prop-types": "15.6.1",
     "qs": "6.5.1",
     "react": "16.2.0",
@@ -66,7 +69,6 @@
     "react-dom": "16.2.0",
     "react-helmet-async": "0.0.5",
     "react-hot-loader": "4.0.0",
-    "@7rulnik/react-loadable": "^5.3.4",
     "react-paginate": "^5.2.2",
     "react-redux": "5.0.7",
     "react-reformed": "1.1.2",
