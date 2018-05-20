@@ -70,7 +70,7 @@ const values = {
     /\.(css|scss|sass|sss|less)$/,
   ],
   serviceWorker: {
-    enabled: EnvVars.bool('SERVICE_WORKER', false),
+    enabled: EnvVars.bool('SERVICE_WORKER', true),
     fileName: 'sw.js',
     includePublicAssets: ['./**/*'],
     offlinePageFileName: 'offline.html',
