@@ -1,18 +1,17 @@
+import { ReactLoadablePlugin } from '@7rulnik/react-loadable/webpack'
 import appRootDir from 'app-root-dir'
 import AssetsPlugin from 'assets-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
-import nodeExternals from 'webpack-node-externals'
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import { ReactLoadablePlugin } from '@7rulnik/react-loadable/webpack'
 import path from 'path'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import webpack from 'webpack'
-import { log } from '../utils'
-import { ifElse } from '../utils/logic'
-import { clean } from '../utils/arrays'
-import withServiceWorker from './withServiceWorker'
+import nodeExternals from 'webpack-node-externals'
 import config from '../../config'
+import { log } from '../utils'
+import { clean } from '../utils/arrays'
+import { ifElse } from '../utils/logic'
+import withServiceWorker from './withServiceWorker'
 
 export default function (buildOptions) {
   const { target, optimize = false } = buildOptions
@@ -170,6 +169,7 @@ export default function (buildOptions) {
         BUILD_FLAG_IS_NODE: JSON.stringify(isNode),
         BUILD_FLAG_IS_DEV: JSON.stringify(isDev),
         DISABLE_CODE_SPLITTING: JSON.stringify(config('disableCodeSplitting')),
+        DEAD_WEIGHT: JSON.stringify(config('deadWeight')),
       }),
 
       ifClient(
@@ -282,6 +282,11 @@ export default function (buildOptions) {
                 name: 'static/[hash].[ext]',
               },
             })),
+
+            {
+              loader: 'raw-loader',
+              include: [/\.txt$/],
+            },
 
             ifElse(isClient || isServer)(() => ({
               loader: 'file-loader',

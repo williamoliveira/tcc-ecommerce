@@ -16,7 +16,10 @@ const app = express()
 app.disable('x-powered-by')
 app.use(...security)
 app.use(cookieParser())
-app.use(compression())
+
+if (config('enableCompression')) {
+  app.use(compression())
+}
 
 if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')) {
   app.get(`/${config('serviceWorker.fileName')}`, serviceWorker)

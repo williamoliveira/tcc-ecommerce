@@ -7,18 +7,6 @@ import config from '../../../../../../../../config'
 import logoUrl from '../../../../../../imgs/logo.png'
 import { formatCurrency, getProductThumbUrl, makeImageUrl } from '../../helpers'
 
-const NavItemLink = ({ children, to, disabled = false }) => (
-  <NavItem>
-    <NavLink
-      to={!disabled ? to : '/#'}
-      className={`nav-link${disabled ? ' disabled' : ''}`}
-      activeClassName="active"
-    >
-      {children}
-    </NavLink>
-  </NavItem>
-)
-
 class Menu extends React.Component {
   constructor(props) {
     super(props)
@@ -62,19 +50,6 @@ class Menu extends React.Component {
 
     return (
       <header className="navbar navbar-sticky">
-        <form
-          className="site-search"
-          method="get"
-          style={{ width: '100%', marginLeft: -16 }}
-        >
-          <input type="text" name="site_search" placeholder="Digite para pesquisar..." />
-          <div className="search-tools">
-            <span className="clear-search">Limpar</span>
-            <span className="close-search">
-              <i className="icon-cross" />
-            </span>
-          </div>
-        </form>
         <div className="site-branding">
           <div className="inner">
             <Link to="/" className="site-logo">

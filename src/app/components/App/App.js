@@ -15,8 +15,8 @@ import './styles/custom.global.scss'
 import config from '../../../../config'
 
 import Error404 from './routes/Error404'
-
 import SiteRoute from './routes/Site'
+import DeadWeight from './routes/DeadWeight'
 
 class App extends React.Component {
   render() {
@@ -141,6 +141,7 @@ class App extends React.Component {
           <link rel="manifest" href="/manifest.json" />
         </Helmet>
         <Switch>
+          <Route path="/dead-weight" component={DeadWeight} />
           <Route path="/" component={SiteRoute} />
           <Route component={Error404} />
         </Switch>

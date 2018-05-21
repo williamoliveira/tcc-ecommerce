@@ -27,6 +27,8 @@ const values = {
   disableSSR: EnvVars.bool('DISABLE_SSR', false),
   disableCSR: EnvVars.bool('DISABLE_CSR', false),
   disableCodeSplitting: EnvVars.bool('DISABLE_CS', false),
+  deadWeight: EnvVars.string('DEAD_WEIGHT'),
+  enableCompression: EnvVars.bool('ENABLE_COMPRESSION', false),
   browserCacheMaxAge: '365d',
   polyfillIO: {
     enabled: false,

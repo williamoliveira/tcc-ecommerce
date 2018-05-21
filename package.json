@@ -62,11 +62,11 @@
     "prerender-node": "^3.1.1",
     "prop-types": "15.6.1",
     "qs": "6.5.1",
-    "react": "16.2.0",
+    "react": "16.3.2",
     "react-async-bootstrapper": "2.1.0",
     "react-async-component": "2.0.0",
     "react-datetime": "2.14.0",
-    "react-dom": "16.2.0",
+    "react-dom": "16.3.2",
     "react-helmet-async": "0.0.5",
     "react-hot-loader": "4.0.0",
     "react-paginate": "^5.2.2",
@@ -89,10 +89,7 @@
     "serialize-javascript": "1.4.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "2.0.4",
-    "stats-webpack-plugin": "^0.6.2",
-    "uuid": "3.2.1",
-    "webpack-flush-chunks": "^1.2.3",
-    "webpack-stats-plugin": "^0.2.1"
+    "uuid": "3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
@@ -153,10 +150,8 @@
     "prettier-eslint": "8.8.1",
     "prettier-eslint-cli": "4.7.1",
     "prop-types": "15.6.1",
-    "react": "16.3.1",
     "react-addons-test-utils": "15.6.2",
     "react-dev-utils": "5.0.1",
-    "react-dom": "16.3.1",
     "react-hot-loader": "4.0.0",
     "react-test-renderer": "16.2.0",
     "redux-devtools-extension": "2.13.2",
@@ -173,6 +168,7 @@
     "webpack-bundle-analyzer": "2.11.1",
     "webpack-dev-middleware": "3.0.1",
     "webpack-hot-middleware": "2.21.2",
-    "webpack-node-externals": "1.7.2"
+    "webpack-node-externals": "1.7.2",
+    "raw-loader": "^0.5.1"
   }
 }
