@@ -67,7 +67,6 @@ export function initialFetchHandler(saga) {
 // Watchers
 // ------------------------------------
 export default function* () {
-  console.log('products sagas loaded')
   yield takeLatest(actions.fetchMany, initialFetchHandler(fetchManyProductsSaga))
   yield throttle(1000, filtersActions.changeFiltersSuccess, changeFiltersSuccessSaga)
   yield takeEvery(actions.fetchManyFailed, reportErrorSaga)

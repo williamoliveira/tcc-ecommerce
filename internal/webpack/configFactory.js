@@ -102,7 +102,7 @@ export default function (buildOptions) {
     performance: ifProdClient({ hints: 'warning' }, false),
 
     optimization: {
-      runtimeChunk: isClient ? 'single' : false,
+      runtimeChunk: !config('disableCodeSplitting') && isClient ? 'single' : false,
       minimizer: ifProdClient([
         new UglifyJsPlugin({
           uglifyOptions: {

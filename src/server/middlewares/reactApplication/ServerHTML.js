@@ -90,7 +90,9 @@ function ServerHTML(props) {
         )}.js?t=${Date.now()}`,
       ),
     ),
-    scriptTag(clientEntryAssets.runtime.js),
+    ifElse(!config('disableCSR') && clientEntryAssets.runtime)(() =>
+      scriptTag(clientEntryAssets.runtime.js),
+    ),
     ...ifElse(bundles && !config('disableCSR'))(
       () =>
         bundles
@@ -99,7 +101,9 @@ function ServerHTML(props) {
           .map(bundle => scriptTag(bundle.publicPath)),
       [],
     ),
-    ifElse(!config('disableCSR'))(() => scriptTag(clientEntryAssets.index.js)),
+    ifElse(!config('disableCSR') && clientEntryAssets.index)(() =>
+      scriptTag(clientEntryAssets.index.js),
+    ),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
   ])
 
