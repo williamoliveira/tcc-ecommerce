@@ -1,5 +1,6 @@
 .env
-build/
+build/client
+build/server
 logs
 *.log
 pids
@@ -17,4 +18,4 @@ flow-coverage/
 .happypack
 .DS_Store
 storage
-browser_data
+deploy.sh
