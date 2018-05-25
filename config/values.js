@@ -30,6 +30,8 @@ const values = {
   deadWeight: EnvVars.string('DEAD_WEIGHT'),
   enableCompression: EnvVars.bool('ENABLE_COMPRESSION', false),
   publicUrl: EnvVars.string('PUBLIC_URL'),
+  enablePrerender: EnvVars.bool('ENABLE_PRERENDER', false),
+  prerenderUrl: EnvVars.string('PRERENDER_URL'),
 
   browserCacheMaxAge: '365d',
   polyfillIO: {

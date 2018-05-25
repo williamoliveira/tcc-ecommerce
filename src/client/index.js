@@ -1,7 +1,6 @@
 import createBrowserHistory from 'history/createBrowserHistory'
 import React from 'react'
-import asyncBootstrapper from 'react-async-bootstrapper'
-import { AsyncComponentProvider } from 'react-async-component'
+import pick from 'lodash/pick'
 import { hydrate, render } from 'react-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { AppContainer as ReactHotLoader } from 'react-hot-loader'
@@ -23,7 +22,12 @@ const renderOrHydrate = appWasServerRendered ? hydrate : render
 const helmetContext = {}
 
 async function renderApp(TheApp) {
-  const store = await configureStore(appRehydrateState, { history, appWasServerRendered })
+  const initialState = appRehydrateState || {
+    router: {
+      location: pick(window.location, ['search']),
+    },
+  }
+  const store = await configureStore(initialState, { history, appWasServerRendered })
 
   const app = (
     <ReactHotLoader>

@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import { resolve as pathResolve } from 'path'
 import appRootDir from 'app-root-dir'
+import prerender from 'prerender-node'
 import security from './middlewares/security'
 import clientBundle from './middlewares/clientBundle'
 import serviceWorker from './middlewares/serviceWorker'
@@ -19,6 +20,17 @@ app.use(cookieParser())
 
 if (config('enableCompression')) {
   app.use(compression())
+}
+
+if (config('enablePrerender')) {
+  prerender.crawlerUserAgents = [
+    'googlebot',
+    'yahoo',
+    'bingbot',
+    ...prerender.crawlerUserAgents,
+  ]
+  prerender.set('prerenderServiceUrl', config('prerenderUrl'))
+  app.use(prerender)
 }
 
 if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')) {
