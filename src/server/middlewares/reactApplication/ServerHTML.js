@@ -15,6 +15,12 @@ function KeyedComponent({ children }) {
 const clientEntryAssets = getClientBundleEntryAssets()
 
 function stylesheetTag(stylesheetFilePath) {
+  if (process.env.BUILD_FLAG_IS_PROD === 'true') {
+    stylesheetFilePath = config('publicUrl')
+      ? `${config('publicUrl')}${stylesheetFilePath}`
+      : stylesheetFilePath
+  }
+
   return (
     <link
       href={stylesheetFilePath}
@@ -26,6 +32,10 @@ function stylesheetTag(stylesheetFilePath) {
 }
 
 function scriptTag(jsFilePath) {
+  if (process.env.BUILD_FLAG_IS_PROD === 'true') {
+    jsFilePath = config('publicUrl') ? `${config('publicUrl')}${jsFilePath}` : jsFilePath
+  }
+
   return <script type="text/javascript" src={jsFilePath} />
 }
 

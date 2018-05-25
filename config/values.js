@@ -29,6 +29,7 @@ const values = {
   disableCodeSplitting: EnvVars.bool('DISABLE_CS', false),
   deadWeight: EnvVars.string('DEAD_WEIGHT'),
   enableCompression: EnvVars.bool('ENABLE_COMPRESSION', false),
+  publicUrl: EnvVars.string('PUBLIC_URL'),
 
   browserCacheMaxAge: '365d',
   polyfillIO: {
