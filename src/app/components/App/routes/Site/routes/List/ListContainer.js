@@ -23,6 +23,7 @@ import {
 import List from './List'
 
 const mapStateToProps = state => ({
+  resultsRepeat: state.app.resultsRepeat,
   products: productSelectors.getCurrentPageProducts(state),
   productGroups: productGroupSelectors.getCurrentPageProductGroups(state),
   pagination: productSelectors.getPagination(state),

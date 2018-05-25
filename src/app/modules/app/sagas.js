@@ -3,12 +3,18 @@ import { replace } from 'react-router-redux'
 import qs from 'qs'
 import { put, takeLatest, call, take, fork, select, takeEvery } from 'redux-saga/effects'
 import * as actions from './actions'
-import * as selectors from './selectors'
 import { actions as authActions, selectors as authSelectors } from '../auth'
 import toast from '../../utils/toast'
 import { REHYDRATE } from '../../utils/reduxSagaPersistor'
-import companyApi from './services/companyApi'
 import productsApi from '../products/services/productsApi'
+
+export function toQueryString(filters) {
+  return `?${qs.stringify(filters)}`
+}
+
+export function fromQueryString(queryString) {
+  return qs.parse(queryString.substring(1, queryString.length))
+}
 
 const getUserFriendlyMessageFromError = (error) => {
   // not axios error
@@ -51,6 +57,11 @@ export function* errorHandlerSaga({ payload, payload: { error, action } }) {
 }
 
 function* beforeAppStartSaga() {
+  const location = yield select(state => state.router.location)
+  const search = fromQueryString(location.search)
+
+  yield put(actions.setMetadata(search))
+
   const user = yield select(authSelectors.getUser)
   const accessToken = yield select(authSelectors.getAccessToken)
 
@@ -99,14 +110,6 @@ export function* initialFetchHandlerSaga() {
     console.log(`No saga called initialFetchStarted withing ${DELAY}ms`)
     yield put(END)
   }
-}
-
-export function toQueryString(filters) {
-  return `?${qs.stringify(filters)}`
-}
-
-export function fromQueryString(queryString) {
-  return qs.parse(queryString.substring(1, queryString.length))
 }
 
 export function* setLocationSearchSaga(action) {

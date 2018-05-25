@@ -1,22 +1,21 @@
+import cns from 'classnames'
 /* eslint-disable no-script-url */
 import chunk from 'lodash/chunk'
 import React from 'react'
-import Helmet from 'react-helmet-async'
+import ReactPaginate from 'react-paginate'
 import Link from 'react-router-dom/Link'
 import 'react-select/dist/react-select.css'
 import Slider from 'react-slick'
 import { Button, Col, Container, Input, Row } from 'reactstrap'
-import cns from 'classnames'
-import ReactPaginate from 'react-paginate'
+import sliderBgImgUrl from '../../../../../../imgs/sider_bg.jpg'
 import Toggler from '../../../../../Toggler'
+import { UNITS_PER_PRODUCT } from '../../constants'
 import {
   formatCurrency,
   getProductFullImgUrl,
   getProductThumbUrl,
   outOfStock,
 } from '../../helpers'
-import sliderBgImgUrl from '../../../../../../imgs/sider_bg.jpg'
-import { UNITS_PER_PRODUCT } from '../../constants'
 
 class ProductsIndex extends React.Component {
   constructor(props) {
@@ -115,6 +114,7 @@ class ProductsIndex extends React.Component {
       pagination = {},
       productGroups = [],
       isLoading = false,
+      resultsRepeat = 1,
       filters = {},
       sliders = [],
     } = this.props
@@ -261,52 +261,60 @@ class ProductsIndex extends React.Component {
               </aside>
             </div>
             <div className="col-md-9">
-              {productsChucks &&
-                productsChucks.map((productsChunk, i) => (
-                  <Row key={i} className="mb-4">
-                    {productsChunk.map(product => (
-                      <Col md={4} key={product.id}>
-                        <div className="product-card">
-                          <Link to={`/p/${product.id}`} className="product-thumb">
-                            <img src={getProductThumbUrl(product)} alt={product.name} />
-                          </Link>
-                          <h3 className="product-title">
-                            <Link to={`/p/${product.id}`} className="product-thumb">
-                              {product.name}
-                            </Link>
-                          </h3>
-                          <h4 className="product-price">
-                            {formatCurrency(product.price)}{' '}
-                            <small className="d-inline text-muted">
-                              ({formatCurrency(product.price / UNITS_PER_PRODUCT)} p/ par)
-                            </small>
-                          </h4>
-                          <div className="product-buttons">
-                            {!outOfStock(product) ? (
-                              !this.productInCart(product) ? (
-                                <Button
-                                  color="primary"
-                                  outline
-                                  onClick={() => this.addItemToCart(product)}
-                                >
-                                  <i className="icon-plus" /> Carrinho
-                                </Button>
-                              ) : (
-                                <Button color="success" disabled outline>
-                                  <i className="icon-check" /> No carrinho
-                                </Button>
-                              )
-                            ) : (
-                              <Button color="default" disabled>
-                                <i className="fa fa-fw fa-remove" /> Fora de estoque
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </Col>
+              {[...Array(resultsRepeat).keys()].map(y => (
+                <React.Fragment key={y}>
+                  {productsChucks &&
+                    productsChucks.map((productsChunk, i) => (
+                      <Row key={i} className="mb-4">
+                        {productsChunk.map(product => (
+                          <Col md={4} key={product.id}>
+                            <div className="product-card">
+                              <Link to={`/p/${product.id}`} className="product-thumb">
+                                <img
+                                  src={getProductThumbUrl(product)}
+                                  alt={product.name}
+                                />
+                              </Link>
+                              <h3 className="product-title">
+                                <Link to={`/p/${product.id}`} className="product-thumb">
+                                  {product.name}
+                                </Link>
+                              </h3>
+                              <h4 className="product-price">
+                                {formatCurrency(product.price)}{' '}
+                                <small className="d-inline text-muted">
+                                  ({formatCurrency(product.price / UNITS_PER_PRODUCT)} p/
+                                  par)
+                                </small>
+                              </h4>
+                              <div className="product-buttons">
+                                {!outOfStock(product) ? (
+                                  !this.productInCart(product) ? (
+                                    <Button
+                                      color="primary"
+                                      outline
+                                      onClick={() => this.addItemToCart(product)}
+                                    >
+                                      <i className="icon-plus" /> Carrinho
+                                    </Button>
+                                  ) : (
+                                    <Button color="success" disabled outline>
+                                      <i className="icon-check" /> No carrinho
+                                    </Button>
+                                  )
+                                ) : (
+                                  <Button color="default" disabled>
+                                    <i className="fa fa-fw fa-remove" /> Fora de estoque
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          </Col>
+                        ))}
+                      </Row>
                     ))}
-                  </Row>
-                ))}
+                </React.Fragment>
+              ))}
 
               {products.length < 1 && (
                 <div className="text-center">Nenhum resultado encontrado.</div>

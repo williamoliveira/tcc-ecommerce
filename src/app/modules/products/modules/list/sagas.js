@@ -1,18 +1,19 @@
-import { call, put, takeLatest, takeEvery, select, throttle } from 'redux-saga/effects'
 import defaultsDeep from 'lodash/fp/defaultsDeep'
+import { delay } from 'redux-saga'
+import { call, put, select, takeEvery, takeLatest, throttle } from 'redux-saga/effects'
+import clean from '../../../../utils/objects/clean'
 import parsePaginationFromResponse from '../../../../utils/parsePaginationFromResponse'
+import { reportErrorSaga } from '../../../app/sagas'
+import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
 import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productsApi from '../../services/productsApi'
 import * as actions from './actions'
-import * as selectors from './selectors'
-import { reportErrorSaga } from '../../../app/sagas'
 import {
-  selectors as filtersSelectors,
   actions as filtersActions,
+  selectors as filtersSelectors,
 } from './modules/filters'
-import clean from '../../../../utils/objects/clean'
-import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
+import * as selectors from './selectors'
 
 // ------------------------------------
 // Sub-routines
@@ -31,6 +32,9 @@ export function* fetchManyProductsSaga(action) {
         name: { search: normalizedFilters.search },
       }),
     })
+
+    const fetchDelay = yield select(state => state.app.fetchDelay)
+    yield delay(fetchDelay)
 
     const res = yield call(productsApi.fetchMany, query)
     const products = res.data

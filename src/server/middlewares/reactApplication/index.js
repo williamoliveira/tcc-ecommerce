@@ -1,25 +1,25 @@
+import Loadable from '@7rulnik/react-loadable'
+import { getBundles } from '@7rulnik/react-loadable/webpack'
+import createMemoryHistory from 'history/createMemoryHistory'
+import { parsePath } from 'history/PathUtils'
 import React from 'react'
-import { HelmetProvider } from 'react-helmet-async'
+import asyncBootstrapper from 'react-async-bootstrapper'
+import { AsyncComponentProvider, createAsyncContext } from 'react-async-component'
 import {
   renderToNodeStream,
   renderToStaticMarkup,
   renderToString,
 } from 'react-dom/server'
-import { AsyncComponentProvider, createAsyncContext } from 'react-async-component'
-import asyncBootstrapper from 'react-async-bootstrapper'
-import Loadable from '@7rulnik/react-loadable'
-import { getBundles } from '@7rulnik/react-loadable/webpack'
+import { HelmetProvider } from 'react-helmet-async'
 import { Provider as ReduxProvider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
-import createMemoryHistory from 'history/createMemoryHistory'
-import { parsePath } from 'history/PathUtils'
-import configureStore from '../../../app/store/configureStore'
 import config from '../../../../config'
-import ServerHTML from './ServerHTML'
 import App from '../../../app/components/App'
-import StaticContextProvider from './StaticContextProvider'
 import { actions as appActions } from '../../../app/modules/app'
+import configureStore from '../../../app/store/configureStore'
 import getReactLoadableStats from './getReactLoadableStats'
+import ServerHTML from './ServerHTML'
+import StaticContextProvider from './StaticContextProvider'
 
 const stats = getReactLoadableStats()
 
@@ -68,8 +68,11 @@ export default async (request, response) => {
     const helmetContext = {}
     let modules = []
 
+    const initialState = {
+      router: { location: initialLocation },
+    }
     const [store] = await Promise.all([
-      configureStore({}, { history, cookies: request.cookies }),
+      configureStore(initialState, { history, cookies: request.cookies }),
       preloadAsyncComponents(),
     ])
 

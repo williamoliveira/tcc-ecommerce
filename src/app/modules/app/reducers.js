@@ -9,18 +9,16 @@ import { NAME } from './constants'
 export const appKey = `${NAME}`
 
 const initialState = {
-  sliders: [],
+  fetchDelay: 0,
+  resultsRepeat: 1,
 }
 
 export const appReducer = createReducer(
   {
     [actions.setMetadata]: (state, { payload }) => ({
       ...state,
-      ...payload,
-    }),
-    [actions.fetchSlidersSuccess]: (state, { payload }) => ({
-      ...state,
-      sliders: payload,
+      fetchDelay: payload.fetchDelay ? parseInt(payload.fetchDelay, 10) : 0,
+      resultsRepeat: payload.resultsRepeat ? parseInt(payload.resultsRepeat, 10) : 1,
     }),
   },
   initialState,

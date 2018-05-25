@@ -29,6 +29,7 @@ const values = {
   disableCodeSplitting: EnvVars.bool('DISABLE_CS', false),
   deadWeight: EnvVars.string('DEAD_WEIGHT'),
   enableCompression: EnvVars.bool('ENABLE_COMPRESSION', false),
+
   browserCacheMaxAge: '365d',
   polyfillIO: {
     enabled: false,
@@ -72,7 +73,7 @@ const values = {
     /\.(css|scss|sass|sss|less)$/,
   ],
   serviceWorker: {
-    enabled: EnvVars.bool('SERVICE_WORKER', true),
+    enabled: EnvVars.bool('SERVICE_WORKER', false),
     fileName: 'sw.js',
     includePublicAssets: ['./**/*'],
     offlinePageFileName: 'offline.html',
