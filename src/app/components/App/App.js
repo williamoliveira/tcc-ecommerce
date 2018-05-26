@@ -20,18 +20,12 @@ import DeadWeight from './routes/DeadWeight'
 
 class App extends React.Component {
   render() {
-    const { company } = this.props
-
-    const titleTemplate = company
-      ? `${company.fantasy_name || company.company_name} - %s`
-      : config('htmlPage.titleTemplate')
-    const defaultTitle = company
-      ? company.fantasy_name || company.company_name
-      : config('htmlPage.defaultTitle')
-
     return (
       <React.Fragment>
-        <Helmet titleTemplate={titleTemplate} defaultTitle={defaultTitle}>
+        <Helmet
+          titleTemplate={config('htmlPage.titleTemplate')}
+          defaultTitle={config('htmlPage.defaultTitle')}
+        >
           <html lang="pt-BR" />
           <meta name="application-name" content={config('htmlPage.defaultTitle')} />
           <meta name="description" content={config('htmlPage.description')} />

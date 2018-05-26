@@ -40,9 +40,9 @@ const values = {
     features: ['default', 'es6'],
   },
   htmlPage: {
-    titleTemplate: 'Delicata Calçados - %s',
-    defaultTitle: 'Delicata Calçados',
-    description: 'Delicata Calçados',
+    titleTemplate: 'TCC Ecommerce - %s',
+    defaultTitle: 'TCC Ecommerce',
+    description: 'Aplicação de Testes',
   },
   cspExtensions: {
     childSrc: [],

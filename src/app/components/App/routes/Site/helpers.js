@@ -28,3 +28,5 @@ export const getProductFullImgUrl = product =>
     : defaultProductImg)
 
 export const outOfStock = product => product.balance < 1
+
+export const fullUrl = url => `${config('publicUrl')}${url}`

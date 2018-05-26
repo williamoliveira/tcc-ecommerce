@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react'
-import { Button, UncontrolledCarousel } from 'reactstrap'
 import Helmet from 'react-helmet-async'
 import reformed from 'react-reformed'
+import { Button, UncontrolledCarousel } from 'reactstrap'
 import { compose } from 'redux'
-import { formatCurrency, makeImageUrl, outOfStock } from '../../helpers'
 import withValidation from '../../../../../withValidation'
 import { UNITS_PER_PRODUCT } from '../../constants'
+import { formatCurrency, fullUrl, makeImageUrl, outOfStock } from '../../helpers'
 
 class ProductsShowBody extends Component {
   constructor() {
@@ -74,7 +74,19 @@ class ProductsShowBody extends Component {
 
     return (
       <div className="container padding-bottom-3x mb-1 mt-5">
-        <Helmet>{product && <title>{product.name}</title>}</Helmet>
+        {product && (
+          <Helmet>
+            <title>{product.name}</title>
+            <meta property="og:url" content={fullUrl(`/p/${product.id}`)} />
+            <meta property="og:type" content="product" />
+            <meta property="og:title" content={product.name} />
+            <meta property="og:description" content="Uma descrição do produto." />
+            <meta
+              property="og:image"
+              content={makeImageUrl(`${product.images[0].url}?w=800`)}
+            />
+          </Helmet>
+        )}
 
         <div className="row">
           <div className="col-md-6">
@@ -156,4 +168,5 @@ class ProductsShowBody extends Component {
     )
   }
 }
+
 export default compose(reformed(), withValidation())(ProductsShowBody)
