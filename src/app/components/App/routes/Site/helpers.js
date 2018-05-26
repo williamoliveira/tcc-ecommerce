@@ -8,7 +8,7 @@ export const formatCurrency = (price = 0, prefix = 'R$ ') =>
 
 export const imgCdn = (url) => {
   if (process.env.BUILD_FLAG_IS_DEV === 'true') return url
-  return `//i0.wp.com/${url.replace(/https?:\/\//, '')}`
+  return `https://i0.wp.com/${url.replace(/https?:\/\//, '')}`
 }
 
 export const makeImageUrl = (url) => {
