@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@7rulnik/react-loadable": "^5.3.4",
+    "@babel/polyfill": "^7.0.0-beta.49",
     "app-root-dir": "1.0.2",
     "assign-deep": "0.4.7",
     "axios": "0.18.0",
@@ -61,6 +62,7 @@
     "prerender": "^5.4.2",
     "prerender-node": "^3.1.1",
     "prop-types": "15.6.1",
+    "proxy-polyfill": "^0.2.0",
     "qs": "6.5.1",
     "react": "16.3.2",
     "react-async-bootstrapper": "2.1.0",
