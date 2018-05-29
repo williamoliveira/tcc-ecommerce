@@ -1,10 +1,11 @@
+import Loadable from '@7rulnik/react-loadable'
 import createBrowserHistory from 'history/createBrowserHistory'
-import React from 'react'
 import pick from 'lodash/pick'
+import React from 'react'
 import { hydrate, render } from 'react-dom'
+import ErrorBoundary from 'react-error-boundary'
 import { HelmetProvider } from 'react-helmet-async'
 import { AppContainer as ReactHotLoader } from 'react-hot-loader'
-import Loadable from '@7rulnik/react-loadable'
 import { Provider as ReduxProvider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import config from '../../config'
@@ -30,19 +31,21 @@ async function renderApp(TheApp) {
   const store = await configureStore(initialState, { history, appWasServerRendered })
 
   const app = (
-    <ReactHotLoader>
-      <ReduxProvider store={store}>
-        <ConnectedRouter
-          history={history}
-          basename={config('basename')}
-          forceRefresh={!supportsHistory}
-        >
-          <HelmetProvider context={helmetContext}>
-            <TheApp />
-          </HelmetProvider>
-        </ConnectedRouter>
-      </ReduxProvider>
-    </ReactHotLoader>
+    <ErrorBoundary FallbackComponent={() => 'Ocorreu um erro na renderização.'}>
+      <ReactHotLoader>
+        <ReduxProvider store={store}>
+          <ConnectedRouter
+            history={history}
+            basename={config('basename')}
+            forceRefresh={!supportsHistory}
+          >
+            <HelmetProvider context={helmetContext}>
+              <TheApp />
+            </HelmetProvider>
+          </ConnectedRouter>
+        </ReduxProvider>
+      </ReactHotLoader>
+    </ErrorBoundary>
   )
 
   await Loadable.preloadReady()

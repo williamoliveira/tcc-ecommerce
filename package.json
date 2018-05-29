@@ -67,6 +67,7 @@
     "react-async-component": "2.0.0",
     "react-datetime": "2.14.0",
     "react-dom": "16.3.2",
+    "react-error-boundary": "^1.2.3",
     "react-helmet-async": "0.0.5",
     "react-hot-loader": "4.0.0",
     "react-paginate": "^5.2.2",
@@ -150,6 +151,7 @@
     "prettier-eslint": "8.8.1",
     "prettier-eslint-cli": "4.7.1",
     "prop-types": "15.6.1",
+    "raw-loader": "^0.5.1",
     "react-addons-test-utils": "15.6.2",
     "react-dev-utils": "5.0.1",
     "react-hot-loader": "4.0.0",
@@ -168,7 +170,6 @@
     "webpack-bundle-analyzer": "2.11.1",
     "webpack-dev-middleware": "3.0.1",
     "webpack-hot-middleware": "2.21.2",
-    "webpack-node-externals": "1.7.2",
-    "raw-loader": "^0.5.1"
+    "webpack-node-externals": "1.7.2"
   }
 }
