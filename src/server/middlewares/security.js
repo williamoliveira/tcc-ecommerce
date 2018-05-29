@@ -47,7 +47,7 @@ const securityMiddleware = [
   helmet.frameguard('deny'),
   helmet.ieNoOpen(),
   helmet.noSniff(),
-  helmet.contentSecurityPolicy(cspConfig),
+  // helmet.contentSecurityPolicy(cspConfig),
 ]
 
 export default securityMiddleware

@@ -316,6 +316,12 @@ class ProductsIndex extends React.Component {
                 </React.Fragment>
               ))}
 
+              {products && (
+                <script
+                  dangerouslySetInnerHTML={{ __html: "performance.mark('TTFMP')" }}
+                />
+              )}
+
               {products.length < 1 && (
                 <div className="text-center">Nenhum resultado encontrado.</div>
               )}

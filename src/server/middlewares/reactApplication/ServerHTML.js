@@ -75,6 +75,10 @@ function ServerHTML(props) {
   ])
 
   const bodyElements = clean([
+    <script src="https://cdn.ravenjs.com/3.25.2/raven.min.js" crossOrigin="anonymous" />,
+    inlineScript(
+      "Raven.config('https://5d56590ee737403f99dfeeec62c38807@sentry.io/1215200').install()",
+    ),
     ifElse(!config('disableCSR'))(() => <ClientConfig nonce={nonce} config={config()} />),
     ifElse(!config('disableCSR') && asyncComponentsState)(() =>
       inlineScript(
