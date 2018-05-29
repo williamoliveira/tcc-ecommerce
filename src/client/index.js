@@ -1,4 +1,4 @@
-import 'proxy-polyfill'
+import 'proxy-polyfill/proxy.min'
 import Loadable from '@7rulnik/react-loadable'
 import createBrowserHistory from 'history/createBrowserHistory'
 import pick from 'lodash/pick'
