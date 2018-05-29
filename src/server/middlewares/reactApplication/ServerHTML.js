@@ -90,7 +90,9 @@ function ServerHTML(props) {
     ),
     ifElse(!config('disableCSR') && config('polyfillIO.enabled'))(() =>
       scriptTag(
-        `${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}`,
+        `${config('polyfillIO.url')}?unknown=polyfill&features=${config(
+          'polyfillIO.features',
+        ).join(',')}`,
         false,
       ),
     ),
