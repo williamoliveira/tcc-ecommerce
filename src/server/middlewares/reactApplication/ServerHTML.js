@@ -16,9 +16,10 @@ const clientEntryAssets = getClientBundleEntryAssets()
 
 function stylesheetTag(stylesheetFilePath) {
   if (process.env.NODE_ENV === 'production') {
-    stylesheetFilePath = config('publicUrl')
-      ? `${config('publicUrl')}${stylesheetFilePath}`
-      : stylesheetFilePath
+    stylesheetFilePath =
+      config('publicUrl') && !stylesheetFilePath.startsWith('http')
+        ? `${config('publicUrl')}${stylesheetFilePath}`
+        : stylesheetFilePath
   }
 
   return (
@@ -33,7 +34,10 @@ function stylesheetTag(stylesheetFilePath) {
 
 function scriptTag(jsFilePath) {
   if (process.env.NODE_ENV === 'production') {
-    jsFilePath = config('publicUrl') ? `${config('publicUrl')}${jsFilePath}` : jsFilePath
+    jsFilePath =
+      config('publicUrl') && !jsFilePath.startsWith('http')
+        ? `${config('publicUrl')}${jsFilePath}`
+        : jsFilePath
   }
 
   return <script type="text/javascript" src={jsFilePath} />
