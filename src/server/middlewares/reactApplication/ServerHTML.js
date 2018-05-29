@@ -14,10 +14,10 @@ function KeyedComponent({ children }) {
 
 const clientEntryAssets = getClientBundleEntryAssets()
 
-function stylesheetTag(stylesheetFilePath) {
+function stylesheetTag(stylesheetFilePath, injectPublicUrl = true) {
   if (process.env.NODE_ENV === 'production') {
     stylesheetFilePath =
-      config('publicUrl') && !stylesheetFilePath.startsWith('http')
+      injectPublicUrl && config('publicUrl')
         ? `${config('publicUrl')}${stylesheetFilePath}`
         : stylesheetFilePath
   }
@@ -32,10 +32,10 @@ function stylesheetTag(stylesheetFilePath) {
   )
 }
 
-function scriptTag(jsFilePath) {
+function scriptTag(jsFilePath, injectPublicUrl = true) {
   if (process.env.NODE_ENV === 'production') {
     jsFilePath =
-      config('publicUrl') && !jsFilePath.startsWith('http')
+      injectPublicUrl && config('publicUrl')
         ? `${config('publicUrl')}${jsFilePath}`
         : jsFilePath
   }
@@ -91,6 +91,7 @@ function ServerHTML(props) {
     ifElse(!config('disableCSR') && config('polyfillIO.enabled'))(() =>
       scriptTag(
         `${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}`,
+        false,
       ),
     ),
     ifElse(
