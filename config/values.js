@@ -85,7 +85,7 @@ const values = {
   bundles: {
     client: {
       srcEntryFile: './src/client/index.js',
-      srcPaths: ['./src', './internal/components'],
+      srcPaths: ['./src', './config', './internal/components'],
       outputPath: './build/client',
       webPath: '/client/',
       devVendorDLL: {
@@ -132,7 +132,7 @@ const values = {
 
     server: {
       srcEntryFile: './src/server/index.js',
-      srcPaths: ['./src', './internal/components'],
+      srcPaths: ['./src', './config', './internal/components'],
       outputPath: './build/server',
     },
   },
