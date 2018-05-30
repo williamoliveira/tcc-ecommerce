@@ -1,12 +1,12 @@
-import { call, put, takeLatest, takeEvery, select } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import parsePaginationFromResponse from '../../../../utils/parsePaginationFromResponse'
+import { reportErrorSaga } from '../../../app/sagas'
+import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
 import { actions as entitiesActions } from '../../../entities'
 import { normalizeList } from '../../schema'
 import productGroupsApi from '../../services/productGroupsApi'
 import * as actions from './actions'
 import * as selectors from './selectors'
-import { reportErrorSaga } from '../../../app/sagas'
-import notifyInitialFetch from '../../../app/sagaUtils/notifyInitialFetch'
 
 // ------------------------------------
 // Sub-routines
@@ -17,8 +17,11 @@ export function* fetchManyProductGroupsSaga(action) {
 
     const { query } = action.payload || {}
 
+    const delay = yield select(state => state.app.fetchDelay)
+
     const cleanQuery = {
       include: ['sub_groups'],
+      delay,
       ...query,
     }
 

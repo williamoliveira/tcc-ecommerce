@@ -1,5 +1,4 @@
 import defaultsDeep from 'lodash/fp/defaultsDeep'
-import { delay } from 'redux-saga'
 import { call, put, select, takeEvery, takeLatest, throttle } from 'redux-saga/effects'
 import clean from '../../../../utils/objects/clean'
 import parsePaginationFromResponse from '../../../../utils/parsePaginationFromResponse'
@@ -26,15 +25,15 @@ export function* fetchManyProductsSaga(action) {
 
     const normalizedFilters = yield select(filtersSelectors.getNormalizedFilters)
 
+    const delay = yield select(state => state.app.fetchDelay)
+
     const query = defaultsDeep(payloadQuery, {
       where: clean({
         product_sub_group_id: normalizedFilters.subGroupId,
         name: { search: normalizedFilters.search },
       }),
+      delay,
     })
-
-    const fetchDelay = yield select(state => state.app.fetchDelay)
-    yield delay(fetchDelay)
 
     const res = yield call(productsApi.fetchMany, query)
     const products = res.data
