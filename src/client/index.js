@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import 'proxy-polyfill/proxy.min'
 import Loadable from '@7rulnik/react-loadable'
 import createBrowserHistory from 'history/createBrowserHistory'
