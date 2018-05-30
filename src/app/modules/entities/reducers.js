@@ -8,7 +8,11 @@ import { NAME } from './constants'
 // ------------------------------------
 export const entitiesKey = NAME
 
-const initialState = {}
+const initialState = {
+  orders: {},
+  products: {},
+  productGroups: {},
+}
 
 export const entitiesReducer = createReducer(
   {

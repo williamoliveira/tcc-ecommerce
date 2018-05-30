@@ -10,4 +10,4 @@ const proxy = state =>
 
 const getStateSlice = state => state[entitiesKey]
 
-export const getEntities = createSelector([getStateSlice], state => proxy(state || {}))
+export const getEntities = createSelector([getStateSlice], state => state || {})
