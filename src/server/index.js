@@ -1,16 +1,16 @@
-import express from 'express'
-import cookieParser from 'cookie-parser'
-import compression from 'compression'
-import { resolve as pathResolve } from 'path'
 import appRootDir from 'app-root-dir'
-import prerender from 'prerender-node'
-import security from './middlewares/security'
-import clientBundle from './middlewares/clientBundle'
-import serviceWorker from './middlewares/serviceWorker'
-import offlinePage from './middlewares/offlinePage'
-import errorHandlers from './middlewares/errorHandlers'
+import compression from 'compression'
+import cookieParser from 'cookie-parser'
+import express from 'express'
+import { resolve as pathResolve } from 'path'
+import rendertron from 'rendertron-middleware'
 import config from '../../config'
+import clientBundle from './middlewares/clientBundle'
+import errorHandlers from './middlewares/errorHandlers'
+import offlinePage from './middlewares/offlinePage'
 import reactApplication from './middlewares/reactApplication'
+import security from './middlewares/security'
+import serviceWorker from './middlewares/serviceWorker'
 
 const app = express()
 
@@ -23,14 +23,12 @@ if (config('enableCompression')) {
 }
 
 if (config('enablePrerender')) {
-  prerender.crawlerUserAgents = [
-    'googlebot',
-    'yahoo',
-    'bingbot',
-    ...prerender.crawlerUserAgents,
-  ]
-  prerender.set('prerenderServiceUrl', config('prerenderUrl'))
-  app.use(prerender)
+  app.use(
+    rendertron.makeMiddleware({
+      proxyUrl: `${config('prerenderUrl')}/render`,
+      userAgentPattern: [...rendertron.botUserAgents, 'googlebot', 'WhatsApp'],
+    }),
+  )
 }
 
 if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')) {
