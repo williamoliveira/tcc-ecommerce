@@ -35,7 +35,7 @@ const values = {
 
   browserCacheMaxAge: '365d',
   polyfillIO: {
-    enabled: true,
+    enabled: false,
     url: 'https://cdn.polyfill.io/v2/polyfill.min.js',
     features: ['default', 'es6'],
   },
