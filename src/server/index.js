@@ -26,7 +26,10 @@ if (config('enablePrerender')) {
   app.use(
     rendertron.makeMiddleware({
       proxyUrl: `${config('prerenderUrl')}/render`,
-      userAgentPattern: [...rendertron.botUserAgents, 'googlebot', 'WhatsApp'],
+      userAgentPattern: new RegExp(
+        [...rendertron.botUserAgents, 'googlebot', 'WhatsApp'].join('|'),
+        'i',
+      ),
     }),
   )
 }
